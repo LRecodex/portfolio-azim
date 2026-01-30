@@ -227,7 +227,7 @@ function Nav() {
             href="#contact"
           >
             <ArrowRight className="h-4 w-4" />
-            Hire me
+            Contact Me
           </a>
         </div>
       </div>
@@ -833,7 +833,7 @@ export default function App() {
         id="about"
         title="About"
         icon={<Code2 className="h-5 w-5 text-slate-200" />}
-        subtitle="Compact, meaningful, and focused on how you ship end-to-end."
+        subtitle="Software engineer with a passion for clean architecture and deployment."
       >
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
           <div className="space-y-4 text-slate-200/90 leading-relaxed">
@@ -902,7 +902,7 @@ export default function App() {
         id="skills"
         title="Skills"
         icon={<Layers className="h-5 w-5 text-slate-200" />}
-        subtitle="A clean, readable snapshot of the stack you actually use."
+        subtitle="A battle-tested stack for web, mobile, and system development."
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {skills.map((group) => (
@@ -927,7 +927,7 @@ export default function App() {
         id="experience"
         title="Work Experience"
         icon={<Briefcase className="h-5 w-5 text-slate-200" />}
-        subtitle="Impact-first bullets, compact format."
+        subtitle="Hands-on experience building and maintaining production systems."
       >
         <div className="space-y-4">
           {experience.map((e) => (
@@ -959,7 +959,7 @@ export default function App() {
         id="projects"
         title="Projects"
         icon={<Code2 className="h-5 w-5 text-slate-200" />}
-        subtitle="A few strong projects, not a long list."
+        subtitle="Formal training that complements hands-on development experience."
       >
         <div className="grid md:grid-cols-2 gap-4">
           {projects.map((p) => (
@@ -1094,7 +1094,7 @@ export default function App() {
         id="contact"
         title="Contact"
         icon={<Mail className="h-5 w-5 text-slate-200" />}
-        subtitle="Make it easy to reach you."
+        subtitle="Feel free to reach out for work, ideas, or questions."
       >
         <div className="grid lg:grid-cols-[1fr] gap-6 items-start">
           <div className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5">
