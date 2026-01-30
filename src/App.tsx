@@ -1,5 +1,11 @@
 import React, { useMemo, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+  MotionValue,
+} from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -95,10 +101,47 @@ function Section({
         </div>
 
         <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.04)] overflow-hidden">
-          <div className="p-5 sm:p-7">{children}</div>
+          <div className="p-5 sm:p-7">
+            <Stagger active={isInView}>{children}</Stagger>
+          </div>
         </div>
       </motion.div>
     </section>
+  );
+}
+
+function Stagger({
+  children,
+  active,
+}: {
+  children: React.ReactNode;
+  active?: boolean;
+}) {
+  const items = React.Children.toArray(children);
+  return (
+    <motion.div
+      initial="hidden"
+      animate={active ? "show" : "hidden"}
+      variants={{
+        hidden: {},
+        show: {
+          transition: { staggerChildren: 0.08, delayChildren: 0.08 },
+        },
+      }}
+      className="space-y-4"
+    >
+      {items.map((child, index) => (
+        <motion.div
+          key={`stagger-${index}`}
+          variants={{
+            hidden: { opacity: 0, y: 12 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+          }}
+        >
+          {child}
+        </motion.div>
+      ))}
+    </motion.div>
   );
 }
 
@@ -231,6 +274,119 @@ function GlowBlobs() {
   );
 }
 
+function AnimatedBackground({
+  parallaxA,
+  parallaxB,
+}: {
+  parallaxA?: MotionValue<number> | number | string;
+  parallaxB?: MotionValue<number> | number | string;
+}) {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <motion.div
+        aria-hidden
+        className="absolute -top-40 -right-32 h-[36rem] w-[36rem] rounded-full blur-3xl opacity-40"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, rgba(14,165,233,0.9), transparent 60%)",
+          y: parallaxA,
+        }}
+        animate={{ x: [0, -30, 10, 0], y: [0, 20, -15, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute -bottom-44 -left-32 h-[34rem] w-[34rem] rounded-full blur-3xl opacity-35"
+        style={{
+          background:
+            "radial-gradient(circle at 70% 30%, rgba(236,72,153,0.8), transparent 60%)",
+          y: parallaxB,
+        }}
+        animate={{ x: [0, 25, -20, 0], y: [0, -10, 25, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl opacity-25"
+        style={{
+          background:
+            "radial-gradient(circle at 40% 40%, rgba(34,197,94,0.7), transparent 60%)",
+        }}
+        animate={{ scale: [1, 1.06, 1], rotate: [0, 8, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute inset-0 opacity-30 mix-blend-screen"
+        style={{
+          background:
+            "conic-gradient(from 120deg at 50% 40%, rgba(59,130,246,0.25), rgba(16,185,129,0.18), rgba(236,72,153,0.2), rgba(59,130,246,0.25))",
+          filter: "blur(40px)",
+        }}
+        animate={{ rotate: [0, 12, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.18]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0)",
+          backgroundSize: "22px 22px",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.08] mix-blend-soft-light"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.45) 1px, transparent 0)",
+          backgroundSize: "3px 3px",
+        }}
+      />
+    </div>
+  );
+}
+
+function FloatingShapes({
+  drift,
+}: {
+  drift?: MotionValue<number> | number | string;
+}) {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <motion.div
+        aria-hidden
+        className="absolute left-[8%] top-[18%] h-32 w-32 rounded-3xl border border-white/15 bg-white/5 backdrop-blur-xl"
+        style={{ y: drift }}
+        animate={{ y: [0, -18, 0], rotate: [0, 6, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute right-[10%] top-[26%] h-24 w-24 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl"
+        style={{ y: drift }}
+        animate={{ y: [0, 14, 0], scale: [1, 1.04, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute left-[18%] bottom-[16%] h-20 w-20 rounded-[28px] border border-white/15 bg-gradient-to-br from-white/10 to-white/5"
+        style={{ y: drift }}
+        animate={{ x: [0, 12, 0], rotate: [0, -8, 0] }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute right-[20%] bottom-[12%] h-28 w-28 rounded-full border border-white/10 bg-gradient-to-br from-sky-500/10 to-emerald-500/10"
+        style={{ y: drift }}
+        animate={{ x: [0, -14, 0], y: [0, 10, 0] }}
+        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <header className="relative">
@@ -346,6 +502,11 @@ function Hero() {
 }
 
 export default function App() {
+  const { scrollY } = useScroll();
+  const blobDrift = useTransform(scrollY, [0, 900], [0, -120]);
+  const blobLift = useTransform(scrollY, [0, 900], [0, 80]);
+  const shapeDrift = useTransform(scrollY, [0, 900], [0, -60]);
+
   const skills = useMemo(
     () => [
       {
@@ -662,7 +823,9 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-slate-950 relative overflow-hidden">
+      <AnimatedBackground parallaxA={blobDrift} parallaxB={blobLift} />
+      <FloatingShapes drift={shapeDrift} />
       <Nav />
       <Hero />
 
