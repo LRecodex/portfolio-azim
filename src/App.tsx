@@ -765,7 +765,7 @@ export default function App() {
       name: "LRecodexTerm",
       period: "Jan 2025",
       description:
-        "Linux terminal application similar to MobaXterm, providing SSH and SFTP capabilities with a graphical interface. Built to simplify remote server access and file transfer in a single unified tool.",
+        "Linux terminal application providing SSH and SFTP capabilities with a graphical interface. Built to simplify remote server access and file transfer in a single unified tool.",
       tags: ["C#", "GTK", "SSH", "SFTP", "Linux", "JSON"],
       links: [
         {
