@@ -469,13 +469,16 @@ function Hero() {
               Available for software engineering opportunities
             </div>
 
-            <h1 className="mt-5 text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
+            <h1 className="mt-5 text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05] text-white">
+              Muhammad Fauzul Azim
+            </h1>
+            <h2 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.1]">
               I build{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-emerald-200">
                 fast, reliable
               </span>{" "}
               web & mobile products.
-            </h1>
+            </h2>
 
             <p className="mt-4 text-slate-200/90 max-w-2xl">
               Full-stack Software Developer experienced in Laravel/PHP, React
