@@ -1056,36 +1056,7 @@ export default function App() {
                   <Pill>{c.date}</Pill>
                 </div>
               ) : null}
-              {c.file ? (
-                <div className={c.date ? "mt-3" : "mt-4"}>
-                  {(() => {
-                    const fileUrl = encodeURI(
-                      `/docs/certificate/${c.file}`
-                    );
-                    return (
-                      <div className="flex flex-wrap gap-2">
-                        <a
-                          href={fileUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-xs text-slate-100 hover:bg-white/10 transition"
-                        >
-                          <Link className="h-3.5 w-3.5" />
-                          View
-                        </a>
-                        <a
-                          href={fileUrl}
-                          download={c.file}
-                          className="inline-flex items-center gap-2 rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-xs text-slate-100 hover:bg-white/10 transition"
-                        >
-                          <Download className="h-3.5 w-3.5" />
-                          Download
-                        </a>
-                      </div>
-                    );
-                  })()}
-                </div>
-              ) : null}
+              {c.file ? null : null}
             </div>
           ))}
         </div>
