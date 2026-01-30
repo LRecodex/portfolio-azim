@@ -421,7 +421,7 @@ export default function App() {
       period: "Dec 2024 – Present",
       description:
         "Multi-tenant business platform modules: dashboards, payments, PDF/QR generation, and reliability improvements.",
-      tags: ["Laravel", "JS", "MySQL", "Queues", "Docker"],
+      tags: ["Laravel", "JS", "MySQL", "Queues", "Docker", "Linux", "Supervisor", "Postman"],
     },
     {
       name: "Remote Mouse",
@@ -452,7 +452,7 @@ export default function App() {
       period: "Jan 2025",
       description:
         "Linux terminal application similar to MobaXterm, providing SSH and SFTP capabilities with a graphical interface. Built to simplify remote server access and file transfer in a single unified tool.",
-      tags: ["C#", "GTK", "SSH", "SFTP", "Linux"],
+      tags: ["C#", "GTK", "SSH", "SFTP", "Linux", "JSON"],
       links: [
         {
           label: "GitHub Repo",
@@ -466,7 +466,7 @@ export default function App() {
       period: "Jan 2025",
       description:
         "Multiplayer Wordle-style word game built as a web application. Supports real-time multiplayer gameplay and interactive UI for collaborative and competitive word guessing sessions.",
-      tags: ["React", "Web App", "Multiplayer", "Game Logic"],
+      tags: ["React", "Web App", "Multiplayer", "Game Logic", "Supabase"],
       links: [
         {
           label: "Live Site",
@@ -492,7 +492,7 @@ export default function App() {
       period: "May 2023 – May 2024",
       description:
         "Finance management features with structured data modeling and clear user flows for tracking and reporting.",
-      tags: ["Web App", "SQL", "UI/UX"],
+      tags: ["Web App", "SQL", "Node.js", "Express", "Docker", "PostgreSQL" ],
     },
   ];
 
