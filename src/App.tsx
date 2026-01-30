@@ -1017,6 +1017,7 @@ export default function App() {
         id="education"
         title="Education"
         icon={<GraduationCap className="h-5 w-5 text-slate-200" />}
+        subtitle="Academic foundation supporting my software engineering journey."
       >
         <div className="grid md:grid-cols-2 gap-4">
           {education.map((ed) => (
@@ -1038,7 +1039,7 @@ export default function App() {
         id="certificates"
         title="Certificates"
         icon={<Award className="h-5 w-5 text-slate-200" />}
-        subtitle="Proof of learning—kept compact."
+        subtitle="Continuous learning through recognized certifications and training."
       >
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {certificates.map((c) => (
