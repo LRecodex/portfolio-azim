@@ -911,7 +911,7 @@ export default function App() {
       date: "Dec 2024",
     },
     {
-      title: "CompTIA",
+      title: "Linux Security and Hardening Essential Training",
       issuer: "CompTIA",
       file: "CompTIA®.pdf",
     },
