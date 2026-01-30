@@ -21,7 +21,46 @@ import {
   Linkedin,
   Sparkles,
   Layers,
+  Braces,
+  Boxes,
+  Database,
+  Server,
+  Wrench,
 } from "lucide-react";
+import type { IconType } from "react-icons";
+import {
+  SiPhp,
+  SiJavascript,
+  SiTypescript,
+  SiDart,
+  SiPython,
+  SiDotnet,
+  SiLaravel,
+  SiReact,
+  SiExpress,
+  SiFlutter,
+  SiDjango,
+  SiFlask,
+  SiGtk,
+  SiMysql,
+  SiPostgresql,
+  SiMongodb,
+  SiFirebase,
+  SiSqlite,
+  SiDocker,
+  SiKubernetes,
+  SiRedhatopenshift,
+  SiLinux,
+  SiApache,
+  SiNginx,
+  SiGithub,
+  SiGitlab,
+  SiPostman,
+  SiOpenapiinitiative,
+  SiFigma,
+  SiAdobeacrobatreader,
+} from "react-icons/si";
+import { FiTerminal, FiWifi, FiCpu } from "react-icons/fi";
 
 type Experience = {
   company: string;
@@ -149,6 +188,32 @@ function Pill({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1 text-xs text-slate-200">
       {children}
+    </span>
+  );
+}
+
+function SkillPill({
+  label,
+  meta,
+}: {
+  label: string;
+  meta?: { icon: IconType; tint: string; bg: string };
+}) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1 text-xs text-slate-200">
+      {meta ? (
+        <span
+          className={cn(
+            "inline-flex h-5 w-5 items-center justify-center rounded-full",
+            meta.bg,
+          )}
+        >
+          <meta.icon className={cn("h-3.5 w-3.5", meta.tint)} />
+        </span>
+      ) : (
+        <span className="h-1.5 w-1.5 rounded-full bg-white/40" />
+      )}
+      {label}
     </span>
   );
 }
@@ -507,14 +572,84 @@ export default function App() {
   const blobLift = useTransform(scrollY, [0, 900], [0, 80]);
   const shapeDrift = useTransform(scrollY, [0, 900], [0, -60]);
 
+  const skillItemMeta: Record<
+    string,
+    { icon: IconType; tint: string; bg: string }
+  > = {
+    Java: { icon: FiCpu, tint: "text-red-200", bg: "bg-red-500/15" },
+    PHP: { icon: SiPhp, tint: "text-indigo-200", bg: "bg-indigo-500/15" },
+    JavaScript: {
+      icon: SiJavascript,
+      tint: "text-yellow-200",
+      bg: "bg-yellow-500/15",
+    },
+    TypeScript: {
+      icon: SiTypescript,
+      tint: "text-sky-200",
+      bg: "bg-sky-500/15",
+    },
+    Dart: { icon: SiDart, tint: "text-cyan-200", bg: "bg-cyan-500/15" },
+    Python: { icon: SiPython, tint: "text-emerald-200", bg: "bg-emerald-500/15" },
+    "C#": { icon: SiDotnet, tint: "text-fuchsia-200", bg: "bg-fuchsia-500/15" },
+    Laravel: { icon: SiLaravel, tint: "text-rose-200", bg: "bg-rose-500/15" },
+    React: { icon: SiReact, tint: "text-sky-200", bg: "bg-sky-500/15" },
+    "Node.js (Express)": {
+      icon: SiExpress,
+      tint: "text-slate-100",
+      bg: "bg-slate-500/25",
+    },
+    Flutter: { icon: SiFlutter, tint: "text-sky-200", bg: "bg-sky-500/15" },
+    Django: { icon: SiDjango, tint: "text-emerald-200", bg: "bg-emerald-500/15" },
+    Flask: { icon: SiFlask, tint: "text-amber-200", bg: "bg-amber-500/15" },
+    GTK: { icon: SiGtk, tint: "text-slate-200", bg: "bg-slate-500/20" },
+    MySQL: { icon: SiMysql, tint: "text-blue-200", bg: "bg-blue-500/15" },
+    PostgreSQL: { icon: SiPostgresql, tint: "text-indigo-200", bg: "bg-indigo-500/15" },
+    MongoDB: { icon: SiMongodb, tint: "text-emerald-200", bg: "bg-emerald-500/15" },
+    Firebase: { icon: SiFirebase, tint: "text-amber-200", bg: "bg-amber-500/15" },
+    SQLite: { icon: SiSqlite, tint: "text-slate-200", bg: "bg-slate-500/20" },
+    Docker: { icon: SiDocker, tint: "text-sky-200", bg: "bg-sky-500/15" },
+    Kubernetes: { icon: SiKubernetes, tint: "text-indigo-200", bg: "bg-indigo-500/15" },
+    OpenShift: {
+      icon: SiRedhatopenshift,
+      tint: "text-rose-200",
+      bg: "bg-rose-500/15",
+    },
+    "Linux CLI": { icon: SiLinux, tint: "text-slate-200", bg: "bg-slate-500/20" },
+    Apache: { icon: SiApache, tint: "text-rose-200", bg: "bg-rose-500/15" },
+    Nginx: { icon: SiNginx, tint: "text-emerald-200", bg: "bg-emerald-500/15" },
+    SSH: { icon: FiTerminal, tint: "text-slate-200", bg: "bg-slate-500/20" },
+    SFTP: { icon: FiTerminal, tint: "text-slate-200", bg: "bg-slate-500/20" },
+    WebSocket: { icon: FiWifi, tint: "text-cyan-200", bg: "bg-cyan-500/15" },
+    GitHub: { icon: SiGithub, tint: "text-slate-200", bg: "bg-slate-500/20" },
+    GitLab: { icon: SiGitlab, tint: "text-orange-200", bg: "bg-orange-500/15" },
+    Postman: { icon: SiPostman, tint: "text-amber-200", bg: "bg-amber-500/15" },
+    "UI/UX": { icon: SiFigma, tint: "text-pink-200", bg: "bg-pink-500/15" },
+    "REST API": {
+      icon: SiOpenapiinitiative,
+      tint: "text-sky-200",
+      bg: "bg-sky-500/15",
+    },
+    "PDF/QR": {
+      icon: SiAdobeacrobatreader,
+      tint: "text-red-200",
+      bg: "bg-red-500/15",
+    },
+  };
+
   const skills = useMemo(
     () => [
       {
         title: "Languages",
-        items: ["Java", "PHP", "JavaScript", "TypeScript", "Dart", "Python"],
+        icon: Braces,
+        tint: "text-sky-300",
+        bg: "bg-sky-500/10",
+        items: ["Java", "PHP", "JavaScript", "TypeScript", "Dart", "Python", "C#"],
       },
       {
         title: "Frameworks",
+        icon: Boxes,
+        tint: "text-emerald-300",
+        bg: "bg-emerald-500/10",
         items: [
           "Laravel",
           "React",
@@ -522,14 +657,21 @@ export default function App() {
           "Flutter",
           "Django",
           "Flask",
+          "GTK",
         ],
       },
       {
         title: "Data",
+        icon: Database,
+        tint: "text-amber-300",
+        bg: "bg-amber-500/10",
         items: ["MySQL", "PostgreSQL", "MongoDB", "Firebase", "SQLite"],
       },
       {
         title: "DevOps",
+        icon: Server,
+        tint: "text-fuchsia-300",
+        bg: "bg-fuchsia-500/10",
         items: [
           "Docker",
           "Kubernetes",
@@ -537,9 +679,17 @@ export default function App() {
           "Linux CLI",
           "Apache",
           "Nginx",
+          "SSH",
+          "SFTP",
         ],
       },
-      { title: "Tooling", items: ["GitHub", "GitLab", "Postman"] },
+      {
+        title: "Tooling",
+        icon: Wrench,
+        tint: "text-rose-300",
+        bg: "bg-rose-500/10",
+        items: ["GitHub", "GitLab", "Postman", "WebSocket", "REST API", "UI/UX", "PDF/QR"],
+      },
     ],
     [],
   );
@@ -910,12 +1060,22 @@ export default function App() {
               key={group.title}
               className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 hover:bg-white/5 transition"
             >
-              <div className="text-sm font-semibold text-white">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                {group.icon ? (
+                  <span
+                    className={cn(
+                      "inline-flex h-9 w-9 items-center justify-center rounded-2xl ring-1 ring-white/10",
+                      group.bg,
+                    )}
+                  >
+                    <group.icon className={cn("h-4 w-4", group.tint)} />
+                  </span>
+                ) : null}
                 {group.title}
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {group.items.map((it) => (
-                  <Pill key={it}>{it}</Pill>
+                  <SkillPill key={it} label={it} meta={skillItemMeta[it]} />
                 ))}
               </div>
             </div>
@@ -1118,8 +1278,7 @@ export default function App() {
       <footer className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pb-10">
         <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
           <div className="text-sm text-slate-300">
-            © {new Date().getFullYear()} Muhammad Fauzul Azim • Built with React
-            + Tailwind
+            © {new Date().getFullYear()} Muhammad Fauzul Azim Bin Imran Hayat
           </div>
           <div className="text-xs text-slate-400">
             Turning ideas into production-ready systems.
