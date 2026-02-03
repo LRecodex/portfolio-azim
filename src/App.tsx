@@ -795,6 +795,25 @@ export default function App() {
       ],
     },
     {
+      name: "LRecodex3PieceOfFun",
+      period: "Feb 2025",
+      description:
+        "Multiplayer Suit Cards game built as a web application. Supports real-time multiplayer gameplay and interactive UI for collaborative and competitive card game sessions.",
+      tags: ["React", "Web App", "Multiplayer", "Game Logic", "Supabase"],
+      links: [
+        {
+          label: "Live Site",
+          href: "https://www.pieceoffun.fauzulazim.com",
+          kind: "demo",
+        },
+        {
+          label: "GitHub Repo",
+          href: "https://github.com/LRecodex/3pieceoffun",
+          kind: "repo",
+        },
+      ],
+    },
+    {
       name: "YKN (Yayasan Kebajikan Negara)",
       period: "Aug 2024 – Dec 2024",
       description:
