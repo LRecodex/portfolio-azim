@@ -708,6 +708,16 @@ export default function App() {
         "Collaborated with cross-functional teams to troubleshoot and deliver fixes/features on time.",
       ],
     },
+    
+    {
+      company: "Bytes Security Malaysia PLT",
+      role: "Part-time Junior Software Engineer",
+      period: "Dec 2024 – Jan 2025",
+      bullets: [
+        "Implemented bug fixes and small features across Laravel and JavaScript codebases.",
+        "Wrote unit/feature tests and refactored queries to reduce load and simplify maintenance.",
+      ],
+    },
     {
       company: "MSC Management Service Sdn Bhd",
       role: "Intern Full Stack Developer",
@@ -716,15 +726,6 @@ export default function App() {
         "Developed and maintained web/mobile apps using Laravel, Node.js, and Flutter.",
         "Automated workflows for counseling session registration and case management (+30% efficiency).",
         "Designed REST APIs and improved DB performance (reduced query time up to ~40%).",
-      ],
-    },
-    {
-      company: "Bytes Security Malaysia PLT",
-      role: "Part-time Junior Software Engineer",
-      period: "Dec 2024 – Jan 2025",
-      bullets: [
-        "Implemented bug fixes and small features across Laravel and JavaScript codebases.",
-        "Wrote unit/feature tests and refactored queries to reduce load and simplify maintenance.",
       ],
     },
   ];
@@ -765,7 +766,7 @@ export default function App() {
       name: "LRecodexTerm",
       period: "Jan 2025",
       description:
-        "Linux terminal application similar to MobaXterm, providing SSH and SFTP capabilities with a graphical interface. Built to simplify remote server access and file transfer in a single unified tool.",
+        "Linux terminal application providing SSH and SFTP capabilities with a graphical interface. Built to simplify remote server access and file transfer in a single unified tool.",
       tags: ["C#", "GTK", "SSH", "SFTP", "Linux", "JSON"],
       links: [
         {
