@@ -701,7 +701,7 @@ export default function App() {
     {
       company: "Bytes Security Malaysia PLT",
       role: "Software Engineer",
-      period: "Feb 2025 – Present",
+      period: "Feb 2025 – January 2026",
       bullets: [
         "Contributed to secure web application development using Laravel and JavaScript frameworks.",
         "Optimized backend processes and database queries to improve efficiency and code quality.",
