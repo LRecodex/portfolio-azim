@@ -796,7 +796,7 @@ export default function App() {
       ],
     },
     {
-      name: "LRecodex3PieceOfFun",
+      name: "LRecodexTriple7",
       period: "Feb 2025",
       description:
         "Multiplayer Suit Cards game built as a web application. Supports real-time multiplayer gameplay and interactive UI for collaborative and competitive card game sessions.",
