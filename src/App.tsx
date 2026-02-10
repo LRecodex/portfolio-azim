@@ -781,7 +781,7 @@ export default function App() {
       period: "Jan 2025",
       description:
         "Multiplayer Wordle-style word game built as a web application. Supports real-time multiplayer gameplay and interactive UI for collaborative and competitive word guessing sessions.",
-      tags: ["React", "Web App", "Multiplayer", "Game Logic", "Supabase"],
+      tags: ["React", "Web App", "Multiplayer", "Game Logic", "Supabase", "WebSocket"],
       links: [
         {
           label: "Live Site",
@@ -819,7 +819,7 @@ export default function App() {
       period: "Aug 2024 – Dec 2024",
       description:
         "Built scalable modules for operational workflows, reporting, and integrations in a production environment.",
-      tags: ["Laravel", "REST API", "MySQL", "PDF"],
+      tags: ["Laravel", "REST API", "MySQL"],
     },
     {
       name: "Mosque Financial Management System",
