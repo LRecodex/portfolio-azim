@@ -698,7 +698,6 @@ export default function App() {
   );
 
   const experience: Experience[] = [
-    const experience: Experience[] = [
     {
       company: "Blyon Group Berhad",
       role: "Software Engineer",
