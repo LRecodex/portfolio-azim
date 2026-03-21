@@ -698,6 +698,18 @@ export default function App() {
   );
 
   const experience: Experience[] = [
+    const experience: Experience[] = [
+    {
+      company: "Blyon Group Berhad",
+      role: "Software Engineer",
+      period: "Feb 2026 – Current",
+      bullets: [
+        "Developing and maintaining secure, scalable web applications using Laravel and modern JavaScript frameworks.",
+        "Designed and optimized backend architectures, improving database performance and reducing query execution time.",
+        "Implemented API integrations and enhanced system reliability through robust error handling and validation.",
+        "Collaborating with cross-functional teams to deliver high-quality features and resolve production issues efficiently.",
+      ],
+    },
     {
       company: "Bytes Security Malaysia PLT",
       role: "Software Engineer",
