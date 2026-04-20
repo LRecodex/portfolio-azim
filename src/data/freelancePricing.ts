@@ -1,8 +1,13 @@
 import type { FreelancePricingRow, ProjectTypeOption } from "../types/freelance";
 
-export type MaintenancePlan = "Self Maintain" | "Basic" | "Standard" | "Premium";
 export type ComplexityLevel = "Basic" | "Standard" | "Advanced";
 export type UrgencyLevel = "Normal" | "Fast-track";
+export type DomainStatus =
+  | "Already have domain"
+  | "Need new custom domain";
+export type ServerStatus =
+  | "Already have VPS/Cloud"
+  | "Need new VPS/Cloud";
 
 export type ProjectTypeGuide = {
   summary: string;
@@ -18,19 +23,17 @@ export type QuoteEstimatorInput = {
   hasAdminPanel: boolean;
   needsAuth: boolean;
   thirdPartyIntegrations: number;
+  domainStatus: DomainStatus;
+  serverStatus: ServerStatus;
   multilingual: boolean;
   seoSetup: boolean;
   analyticsSetup: boolean;
-  maintenancePlan: MaintenancePlan;
   urgency: UrgencyLevel;
 };
 
 export type QuoteEstimatorResult = {
   oneTimeMin: number;
   oneTimeMax: number;
-  yearlyMin: number;
-  yearlyMax: number;
-  monthly: number;
   notes: string[];
 };
 
@@ -96,23 +99,10 @@ const complexityMultiplier: Record<ComplexityLevel, number> = {
   Advanced: 1.45,
 };
 
-const maintenanceMonthly: Record<MaintenancePlan, number> = {
-  "Self Maintain": 0,
-  Basic: 100,
-  Standard: 200,
-  Premium: 400,
-};
-
 const baseBuildRange: Record<ProjectTypeOption, { min: number; max: number; includedPages: number }> = {
   "Static Website": { min: 800, max: 2500, includedPages: 3 },
   "Dynamic Website": { min: 2500, max: 7000, includedPages: 8 },
   "Web Application": { min: 8000, max: 15000, includedPages: 12 },
-};
-
-const annualOpsRange: Record<ProjectTypeOption, { min: number; max: number }> = {
-  "Static Website": { min: 50, max: 250 },
-  "Dynamic Website": { min: 350, max: 950 },
-  "Web Application": { min: 850, max: 2150 },
 };
 
 function round(value: number) {
@@ -148,6 +138,16 @@ export function estimateQuote(input: QuoteEstimatorInput): QuoteEstimatorResult 
     max += input.thirdPartyIntegrations * 1200;
   }
 
+  if (input.domainStatus === "Need new custom domain") {
+    min += 50;
+    max += 150;
+  }
+
+  if (input.serverStatus === "Need new VPS/Cloud") {
+    min += 150;
+    max += 400;
+  }
+
   if (input.multilingual) {
     min += 400;
     max += 1400;
@@ -172,8 +172,6 @@ export function estimateQuote(input: QuoteEstimatorInput): QuoteEstimatorResult 
     max *= 1.3;
   }
 
-  const yearly = annualOpsRange[input.projectType];
-
   const notes = [
     "Estimate range is based on current public freelance pricing bands.",
     "Final quote is confirmed after scope lock (features, integrations, timeline).",
@@ -185,13 +183,16 @@ export function estimateQuote(input: QuoteEstimatorInput): QuoteEstimatorResult 
   if (input.thirdPartyIntegrations >= 3) {
     notes.push("Multiple third-party integrations can increase testing and QA scope.");
   }
+  if (input.domainStatus === "Need new custom domain") {
+    notes.push("Domain setup is included as a one-time setup task. Annual renewal is client-covered.");
+  }
+  if (input.serverStatus === "Need new VPS/Cloud") {
+    notes.push("Server setup is included as a one-time setup task. VPS/Cloud subscription is client-covered.");
+  }
 
   return {
     oneTimeMin: round(min),
     oneTimeMax: round(max),
-    yearlyMin: yearly.min,
-    yearlyMax: yearly.max,
-    monthly: maintenanceMonthly[input.maintenancePlan],
     notes,
   };
 }

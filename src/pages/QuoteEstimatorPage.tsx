@@ -14,15 +14,16 @@ import type { ProjectTypeOption } from "../types/freelance";
 export default function QuoteEstimatorPage() {
   const defaultInput: QuoteEstimatorInput = {
     projectType: "Static Website",
-    pages: 5,
-    complexity: "Standard",
-    hasAdminPanel: true,
+    pages: 1,
+    complexity: "Basic",
+    hasAdminPanel: false,
     needsAuth: false,
     thirdPartyIntegrations: 0,
+    domainStatus: "Need new custom domain",
+    serverStatus: "Need new VPS/Cloud",
     multilingual: false,
-    seoSetup: true,
-    analyticsSetup: true,
-    maintenancePlan: "Basic",
+    seoSetup: false,
+    analyticsSetup: false,
     urgency: "Normal",
   };
 
@@ -239,7 +240,7 @@ export default function QuoteEstimatorPage() {
               </label>
             </div>
 
-            <div className="text-xs uppercase tracking-wider text-slate-400">Delivery & Support</div>
+            <div className="text-xs uppercase tracking-wider text-slate-400">Delivery</div>
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-xs text-slate-400">
@@ -259,6 +260,38 @@ export default function QuoteEstimatorPage() {
                 </p>
               </div>
               <div>
+                <label className="text-xs text-slate-400">Domain</label>
+                <select
+                  value={input.domainStatus}
+                  onChange={(e) =>
+                    setInput((prev) => ({
+                      ...prev,
+                      domainStatus: e.target.value as QuoteEstimatorInput["domainStatus"],
+                    }))
+                  }
+                  className="mt-1 w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-cyan-300/40"
+                >
+                  <option className="text-slate-900">Already have domain</option>
+                  <option className="text-slate-900">Need new custom domain</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-slate-400">Server (VPS/Cloud)</label>
+                <select
+                  value={input.serverStatus}
+                  onChange={(e) =>
+                    setInput((prev) => ({
+                      ...prev,
+                      serverStatus: e.target.value as QuoteEstimatorInput["serverStatus"],
+                    }))
+                  }
+                  className="mt-1 w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-cyan-300/40"
+                >
+                  <option className="text-slate-900">Already have VPS/Cloud</option>
+                  <option className="text-slate-900">Need new VPS/Cloud</option>
+                </select>
+              </div>
+              <div>
                 <label className="text-xs text-slate-400">Urgency</label>
                 <select
                   value={input.urgency}
@@ -274,25 +307,6 @@ export default function QuoteEstimatorPage() {
                   <option className="text-slate-900">Fast-track</option>
                 </select>
               </div>
-            </div>
-
-            <div>
-              <label className="text-xs text-slate-400">Maintenance Plan</label>
-              <select
-                value={input.maintenancePlan}
-                onChange={(e) =>
-                  setInput((prev) => ({
-                    ...prev,
-                    maintenancePlan: e.target.value as QuoteEstimatorInput["maintenancePlan"],
-                  }))
-                }
-                className="mt-1 w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-cyan-300/40"
-              >
-                <option className="text-slate-900">Self Maintain</option>
-                <option className="text-slate-900">Basic</option>
-                <option className="text-slate-900">Standard</option>
-                <option className="text-slate-900">Premium</option>
-              </select>
             </div>
           </div>
 
@@ -314,21 +328,6 @@ export default function QuoteEstimatorPage() {
               <div className="text-xs text-slate-400">Estimated Build (One-Time)</div>
               <div className="mt-1 text-2xl font-semibold text-white">
                 {formatRm(result.oneTimeMin)} - {formatRm(result.oneTimeMax)}
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-3">
-              <div className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 p-4">
-                <div className="text-xs text-slate-400">Estimated Yearly Ops</div>
-                <div className="mt-1 text-lg font-semibold text-white">
-                  {formatRm(result.yearlyMin)} - {formatRm(result.yearlyMax)}
-                </div>
-              </div>
-              <div className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 p-4">
-                <div className="text-xs text-slate-400">Maintenance (Monthly)</div>
-                <div className="mt-1 text-lg font-semibold text-white">
-                  {formatRm(result.monthly)}
-                </div>
               </div>
             </div>
 

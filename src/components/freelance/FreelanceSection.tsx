@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowRight, Briefcase, Download, Mail } from "lucide-react";
+import { ArrowRight, Briefcase, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import type {
   FreelanceInquiryForm,
@@ -11,8 +11,6 @@ import {
   addOnRows,
   changePolicyRows,
   developmentRows,
-  hostingRows,
-  maintenanceRows,
   projectTypeGuides,
 } from "../../data/freelancePricing";
 import Button from "../ui/Button";
@@ -77,7 +75,7 @@ export default function FreelanceSection() {
       id="freelance"
       title="Freelance Packages"
       icon={<Briefcase className="h-5 w-5 text-slate-200" />}
-      subtitle="Clear pricing, simple explanations, and direct inquiry."
+      subtitle="One-time development pricing, simple explanations, and direct inquiry."
     >
       <div className="grid xl:grid-cols-[1.45fr_0.55fr] gap-6 items-start">
         <div className="space-y-5">
@@ -167,8 +165,6 @@ export default function FreelanceSection() {
 
           <div className="grid xl:grid-cols-2 gap-4">
             <PricingTable title="Development (One-Time Cost)" rows={developmentRows} />
-            <PricingTable title="Hosting & Domain (Yearly)" rows={hostingRows} />
-            <PricingTable title="Maintenance (Monthly)" rows={maintenanceRows} />
             <PricingTable title="Revision & Change Policy" rows={changePolicyRows} />
           </div>
 
@@ -189,7 +185,7 @@ export default function FreelanceSection() {
               <div className="text-white font-semibold">Commercial Terms</div>
               <ul className="mt-3 space-y-2 text-sm text-slate-200/90">
                 <li>50% upfront, 50% upon completion.</li>
-                <li>Hosting and maintenance are separate from build cost.</li>
+                <li>Build quote covers one-time development scope only.</li>
                 <li>Client provides content unless agreed otherwise.</li>
                 <li>Ownership transfers after full payment.</li>
               </ul>
@@ -316,9 +312,6 @@ export default function FreelanceSection() {
               <div className="rounded-xl bg-white/[0.03] ring-1 ring-white/10 px-3 py-2">Free initial consultation</div>
             </div>
 
-            <Button href="/docs/web-dev/web_dev_pricing.pdf" variant="ghost">
-              <Download className="h-4 w-4" /> View Pricing PDF
-            </Button>
             <Button href="/quote-estimator" variant="ghost">
               <ArrowRight className="h-4 w-4" /> Try Quote Estimator
             </Button>
