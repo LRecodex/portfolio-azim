@@ -12,6 +12,9 @@ declare module "react" {
         autoplay?: boolean;
         exposure?: string;
         "camera-controls"?: boolean | string;
+        "auto-rotate"?: boolean | string;
+        "auto-rotate-delay"?: string;
+        "rotation-per-second"?: string;
         "camera-orbit"?: string;
         "min-camera-orbit"?: string;
         "max-camera-orbit"?: string;
