@@ -293,6 +293,7 @@ function FreelanceSection() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
     projectType: "Static Website",
     budget: "",
@@ -421,6 +422,7 @@ function FreelanceSection() {
       "",
       `Name: ${form.name || "-"}`,
       `Email: ${form.email || "-"}`,
+      `Phone: ${form.phone || "-"}`,
       `Company: ${form.company || "-"}`,
       `Project Type: ${form.projectType}`,
       `Budget: ${form.budget || "-"}`,
@@ -488,10 +490,40 @@ function FreelanceSection() {
     >
       <div className="grid lg:grid-cols-[1.35fr_0.65fr] gap-6 items-start">
         <div className="space-y-4">
-          <PricingTable title="Development (One-Time Cost)" rows={developmentRows} />
-          <PricingTable title="Hosting & Domain (Yearly)" rows={hostingRows} />
-          <PricingTable title="Maintenance (Monthly)" rows={maintenanceRows} />
-          <PricingTable title="Revision & Change Policy" rows={changePolicyRows} />
+          <div className="grid sm:grid-cols-3 gap-3">
+            <div className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 p-4">
+              <div className="text-[11px] uppercase tracking-wide text-slate-400">
+                Typical Delivery
+              </div>
+              <div className="mt-1 text-sm font-medium text-white">
+                1-4 weeks
+              </div>
+            </div>
+            <div className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 p-4">
+              <div className="text-[11px] uppercase tracking-wide text-slate-400">
+                Engagement Model
+              </div>
+              <div className="mt-1 text-sm font-medium text-white">
+                Fixed scope
+              </div>
+            </div>
+            <div className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 p-4">
+              <div className="text-[11px] uppercase tracking-wide text-slate-400">
+                Support Window
+              </div>
+              <div className="mt-1 text-sm font-medium text-white">
+                7 days free
+              </div>
+            </div>
+          </div>
+
+          <div className="grid xl:grid-cols-2 gap-4">
+            <PricingTable title="Development (One-Time Cost)" rows={developmentRows} />
+            <PricingTable title="Hosting & Domain (Yearly)" rows={hostingRows} />
+            <PricingTable title="Maintenance (Monthly)" rows={maintenanceRows} />
+            <PricingTable title="Revision & Change Policy" rows={changePolicyRows} />
+          </div>
+
           <PricingTable title="Add-ons" rows={addOnRows} />
 
           <div className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5">
@@ -522,33 +554,46 @@ function FreelanceSection() {
             className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 space-y-3"
           >
             <div>
-              <div className="text-white font-semibold">Email Inquiry</div>
+              <div className="text-white font-semibold">Project Inquiry</div>
               <p className="mt-1 text-sm text-slate-300">
-                One-click send from website via Netlify Function.
+                Share your requirements and send directly. I usually reply within 24 hours.
               </p>
             </div>
 
-            <input
-              value={form.name}
-              onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-              placeholder="Your name"
-              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
-              required
-            />
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
-              placeholder="Your email"
-              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
-              required
-            />
-            <input
-              value={form.company}
-              onChange={(e) => setForm((prev) => ({ ...prev, company: e.target.value }))}
-              placeholder="Company (optional)"
-              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
-            />
+            <div className="grid sm:grid-cols-2 gap-3">
+              <input
+                value={form.name}
+                onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+                placeholder="Your name"
+                className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+                required
+              />
+              <input
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+                placeholder="Your email"
+                className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+                required
+              />
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-3">
+              <input
+                type="tel"
+                value={form.phone}
+                onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
+                placeholder="Phone number"
+                className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+                required
+              />
+              <input
+                value={form.company}
+                onChange={(e) => setForm((prev) => ({ ...prev, company: e.target.value }))}
+                placeholder="Company (optional)"
+                className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+              />
+            </div>
 
             <select
               value={form.projectType}
