@@ -3,11 +3,18 @@ import { ArrowRight, Briefcase, Download, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import type {
   FreelanceInquiryForm,
-  FreelancePricingRow,
   ProjectTypeOption,
 } from "../../types/freelance";
 import { buildFreelanceMailto, sendFreelanceInquiry } from "../../services/freelanceEmail";
 import { cn } from "../../lib/cn";
+import {
+  addOnRows,
+  changePolicyRows,
+  developmentRows,
+  hostingRows,
+  maintenanceRows,
+  projectTypeGuides,
+} from "../../data/freelancePricing";
 import Button from "../ui/Button";
 import Section from "../ui/Section";
 import PricingTable from "./PricingTable";
@@ -27,65 +34,6 @@ export default function FreelanceSection() {
     budget: "",
     message: "",
   });
-
-  const developmentRows: FreelancePricingRow[] = [
-    { item: "Static Website", price: "RM 800 ± RM 2,500", details: "1 ± 2 revision rounds" },
-    { item: "Dynamic Website", price: "RM 2,500 ± RM 7,000", details: "2 ± 3 revision rounds" },
-    { item: "Web Application", price: "RM 8,000 ± RM 15,000+", details: "3 ± 5 revision rounds" },
-  ];
-
-  const hostingRows: FreelancePricingRow[] = [
-    { item: "Domain", price: "RM 50 ± RM 150 / year", details: ".com / .com.my" },
-    { item: "Static Hosting", price: "FREE ± RM 100 / year", details: "Netlify / Vercel" },
-    { item: "Dynamic Hosting", price: "RM 300 ± RM 800 / year", details: "Shared hosting / VPS" },
-    { item: "VPS Server", price: "RM 800 ± RM 2,000+ / year", details: "Recommended for web apps" },
-  ];
-
-  const maintenanceRows: FreelancePricingRow[] = [
-    { item: "Self Maintain", price: "FREE", details: "Client handles everything" },
-    { item: "Basic", price: "RM 100 / month", details: "Backup + updates" },
-    { item: "Standard", price: "RM 200 / month", details: "Support + updates (2 minor changes/month)" },
-    { item: "Premium", price: "RM 400 / month", details: "Full support (5 minor changes/month)" },
-  ];
-
-  const addOnRows: FreelancePricingRow[] = [
-    { item: "Domain Setup", price: "RM 50 ± RM 150", details: "Register domain" },
-    { item: "Hosting Setup", price: "RM 100 ± RM 300", details: "Deploy website" },
-    { item: "Extra Page", price: "RM 150 ± RM 300", details: "Per page" },
-    { item: "Content Upload", price: "RM 100 ± RM 300", details: "Upload content" },
-    { item: "Payment Integration", price: "RM 500 ± RM 1,000", details: "FPX / Stripe" },
-  ];
-
-  const changePolicyRows: FreelancePricingRow[] = [
-    { item: "Minor", price: "RM 50 ± RM 100", details: "Text/image change" },
-    { item: "Medium", price: "RM 100 ± RM 300", details: "Layout adjustment" },
-    { item: "Major", price: "RM 300 ± RM 1,000+", details: "New page" },
-    { item: "Feature", price: "Quote", details: "Login/payment system" },
-  ];
-
-  const projectTypeGuides: Record<
-    ProjectTypeOption,
-    { summary: string; bestFor: string; examples: string; budget: string }
-  > = {
-    "Static Website": {
-      summary: "Best for simple company profiles and landing pages that rarely change.",
-      bestFor: "Portfolio, personal brand, corporate brochure site",
-      examples: "Landing page, company profile, event microsite",
-      budget: "RM 800 ± RM 2,500",
-    },
-    "Dynamic Website": {
-      summary: "Best for content that updates regularly and needs admin control.",
-      bestFor: "Company site with blog/news, listing pages, CMS updates",
-      examples: "Blog/news portal, product catalog, booking/registration site",
-      budget: "RM 2,500 ± RM 7,000",
-    },
-    "Web Application": {
-      summary: "Best for business operations, workflows, and custom product logic.",
-      bestFor: "Internal systems, dashboards, SaaS MVP, portal systems",
-      examples: "Point of Sale (POS), CRM/ERP dashboard, membership portal",
-      budget: "RM 8,000 ± RM 15,000+",
-    },
-  };
 
   const deliverySteps = [
     { title: "Discovery", detail: "Define users, scope, and business goals." },
@@ -135,7 +83,11 @@ export default function FreelanceSection() {
         <div className="space-y-5">
           <div className="relative overflow-hidden rounded-3xl p-6 bg-gradient-to-br from-sky-500/15 via-emerald-500/10 to-rose-500/10 ring-1 ring-white/15">
             <div className="absolute -right-14 -top-16 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
-            <div className="relative grid sm:grid-cols-3 gap-3">
+            <div className="relative space-y-3">
+              <div className="rounded-2xl bg-amber-500/10 ring-1 ring-amber-300/30 px-4 py-3 text-xs text-amber-100 leading-relaxed">
+                Development pricing is for build scope only. Domain, hosting, email services, and third-party subscriptions are covered by the client unless explicitly agreed otherwise.
+              </div>
+              <div className="grid sm:grid-cols-3 gap-3">
               <div className="rounded-2xl bg-slate-950/45 ring-1 ring-white/10 p-4">
                 <div className="text-[11px] uppercase tracking-wide text-slate-400">Timeline Planning</div>
                 <div className="mt-1 text-sm font-medium text-white">Project-dependent and scoped upfront</div>
@@ -148,6 +100,7 @@ export default function FreelanceSection() {
                 <div className="text-[11px] uppercase tracking-wide text-slate-400">Support Window</div>
                 <div className="mt-1 text-sm font-medium text-white">7 days free post-launch</div>
               </div>
+            </div>
             </div>
           </div>
 
@@ -365,6 +318,9 @@ export default function FreelanceSection() {
 
             <Button href="/docs/web-dev/web_dev_pricing.pdf" variant="ghost">
               <Download className="h-4 w-4" /> View Pricing PDF
+            </Button>
+            <Button href="/quote-estimator" variant="ghost">
+              <ArrowRight className="h-4 w-4" /> Try Quote Estimator
             </Button>
           </form>
         </div>

@@ -24,6 +24,14 @@ export default function FreelancePage() {
                   Tell me what you need, your budget range, and target timeline.
                   I will help you choose the right package and provide a clear quote.
                 </p>
+                <div className="mt-4">
+                  <a
+                    href="/quote-estimator"
+                    className="inline-flex items-center gap-2 rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-medium hover:bg-slate-200 transition"
+                  >
+                    Try Instant Quote Estimator
+                  </a>
+                </div>
               </div>
               <FreelanceModelShowcase />
             </div>

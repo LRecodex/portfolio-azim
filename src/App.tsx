@@ -3,6 +3,7 @@ import AnimatedBackground from "./components/background/AnimatedBackground";
 import FloatingShapes from "./components/background/FloatingShapes";
 import FreelancePage from "./pages/FreelancePage";
 import HomePage from "./pages/HomePage";
+import QuoteEstimatorPage from "./pages/QuoteEstimatorPage";
 
 export default function App() {
   const { scrollY } = useScroll();
@@ -17,13 +18,20 @@ export default function App() {
       : "/";
 
   const isFreelancePage = pathname === "/freelance";
-  const motionLite = reduceMotion || isFreelancePage;
+  const isQuoteEstimatorPage = pathname === "/quote-estimator";
+  const motionLite = reduceMotion || isFreelancePage || isQuoteEstimatorPage;
 
   return (
     <div className="min-h-screen bg-slate-950 relative overflow-hidden">
       <AnimatedBackground parallaxA={blobDrift} parallaxB={blobLift} motionLite={motionLite} />
       <FloatingShapes drift={shapeDrift} motionLite={motionLite} />
-      {isFreelancePage ? <FreelancePage /> : <HomePage />}
+      {isFreelancePage ? (
+        <FreelancePage />
+      ) : isQuoteEstimatorPage ? (
+        <QuoteEstimatorPage />
+      ) : (
+        <HomePage />
+      )}
     </div>
   );
 }
