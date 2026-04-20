@@ -9,11 +9,17 @@ export default function Nav({ variant = "home" }: NavProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const items =
-    variant === "freelance" || variant === "estimator"
+    variant === "freelance"
       ? [
           { href: "/", label: "Home" },
           { href: "/freelance", label: "Freelance" },
           { href: "/quote-estimator", label: "Estimator" },
+          { href: "/#contact", label: "Contact" },
+        ]
+      : variant === "estimator"
+      ? [
+          { href: "/", label: "Home" },
+          { href: "/freelance", label: "Freelance" },
           { href: "/#contact", label: "Contact" },
         ]
       : [
@@ -23,13 +29,11 @@ export default function Nav({ variant = "home" }: NavProps) {
           { href: "#projects", label: "Projects" },
           { href: "#education", label: "Education" },
           { href: "#certificates", label: "Certificates" },
-          { href: "/freelance", label: "Freelance" },
-          { href: "/quote-estimator", label: "Estimator" },
           { href: "#contact", label: "Contact" },
         ];
 
   const sideHref = variant === "home" ? "/freelance" : "/";
-  const sideLabel = variant === "home" ? "Freelance Rates" : "Back To Portfolio";
+  const sideLabel = variant === "home" ? "Services" : "Back To Portfolio";
 
   return (
     <div className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/10">
