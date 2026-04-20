@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   motion,
   useInView,
@@ -103,6 +103,14 @@ type ProjectTypeOption =
   | "Static Website"
   | "Dynamic Website"
   | "Web Application";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "model-viewer": any;
+    }
+  }
+}
 
 function cn(...classes: Array<string | undefined | false>) {
   return classes.filter(Boolean).join(" ");
@@ -256,6 +264,62 @@ function Button({
   );
 }
 
+function FreelanceModelShowcase() {
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    if (customElements.get("model-viewer")) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src =
+      "https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js";
+    script.async = true;
+    script.onerror = () => setHasError(true);
+    document.head.appendChild(script);
+  }, []);
+
+  return (
+    <div className="rounded-2xl ring-1 ring-white/15 overflow-hidden min-h-[250px] sm:min-h-[300px] bg-transparent">
+      {hasError ? (
+        <div className="h-full min-h-[250px] sm:min-h-[300px] flex items-center justify-center p-6 text-center text-sm text-slate-300">
+          3D preview failed to load. Refresh the page to try again.
+        </div>
+      ) : (
+        <model-viewer
+          src="/glb/animation.glb"
+          camera-controls
+          auto-rotate
+          autoplay
+          ar={false}
+          disable-pan
+          interaction-prompt="auto"
+          camera-orbit="-25deg 78deg 55%"
+          min-camera-orbit="auto auto 40%"
+          max-camera-orbit="auto auto 85%"
+          field-of-view="22deg"
+          min-field-of-view="15deg"
+          max-field-of-view="30deg"
+          shadow-intensity="1"
+          exposure="1"
+          style={{
+            width: "100%",
+            height: "100%",
+            minHeight: "250px",
+            background: "transparent",
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
 function PricingTable({
   title,
   rows,
@@ -356,19 +420,19 @@ function FreelanceSection() {
     "Static Website": {
       summary: "Best for simple company profiles and landing pages that rarely change.",
       bestFor: "Portfolio, personal brand, corporate brochure site",
-      examples: "Home, About, Services, Contact form",
+      examples: "Landing page, company profile, event microsite",
       budget: "RM 800 ± RM 2,500",
     },
     "Dynamic Website": {
       summary: "Best for content that updates regularly and needs admin control.",
       bestFor: "Company site with blog/news, listing pages, CMS updates",
-      examples: "Admin panel, editable pages, lead capture and filtering",
+      examples: "Blog/news portal, product catalog, booking/registration site",
       budget: "RM 2,500 ± RM 7,000",
     },
     "Web Application": {
       summary: "Best for business operations, workflows, and custom product logic.",
       bestFor: "Internal systems, dashboards, SaaS MVP, portal systems",
-      examples: "User login, role permissions, automation, payment flow",
+      examples: "Point of Sale (POS), CRM/ERP dashboard, membership portal",
       budget: "RM 8,000 ± RM 15,000+",
     },
   };
@@ -447,9 +511,9 @@ function FreelanceSection() {
   return (
     <Section
       id="freelance"
-      title="Freelance Studio"
+      title="Freelance Packages"
       icon={<Briefcase className="h-5 w-5 text-slate-200" />}
-      subtitle="Product-grade web solutions with clear scope, transparent pricing, and guided decisions."
+      subtitle="Clear pricing, simple explanations, and direct inquiry."
     >
       <div className="grid xl:grid-cols-[1.45fr_0.55fr] gap-6 items-start">
         <div className="space-y-5">
@@ -553,9 +617,9 @@ function FreelanceSection() {
             className="rounded-3xl bg-slate-950/45 ring-1 ring-white/10 p-5 space-y-3 shadow-[0_30px_120px_-70px_rgba(56,189,248,0.5)]"
           >
             <div>
-              <div className="text-white font-semibold text-lg">Start Your Project Brief</div>
+              <div className="text-white font-semibold text-lg">Tell Me About Your Project</div>
               <p className="mt-1 text-sm text-slate-300">
-                Tell me what you want to build. You will get a practical proposal, timeline, and quote direction.
+                Share your goals and required features. I will reply with the recommended scope, timeline, and estimate.
               </p>
             </div>
 
@@ -663,7 +727,7 @@ function FreelanceSection() {
 
             <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-400">
               <div className="rounded-xl bg-white/[0.03] ring-1 ring-white/10 px-3 py-2">Response within 24h</div>
-              <div className="rounded-xl bg-white/[0.03] ring-1 ring-white/10 px-3 py-2">No obligation consultation</div>
+              <div className="rounded-xl bg-white/[0.03] ring-1 ring-white/10 px-3 py-2">Free initial consultation</div>
             </div>
 
             <Button href="/docs/web-dev/web_dev_pricing.pdf" variant="ghost">
@@ -1455,26 +1519,24 @@ export default function App() {
         <Nav variant="freelance" />
 
         <header className="relative">
-          <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-14 pb-2">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-500/20 via-slate-900/70 to-emerald-500/15 ring-1 ring-white/15 p-6 sm:p-8">
+          <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-8 pb-1">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-500/20 via-slate-900/70 to-emerald-500/15 ring-1 ring-white/15 p-5 sm:p-6">
               <div className="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-sky-400/20 blur-3xl" />
               <div className="absolute -bottom-24 -left-12 h-56 w-56 rounded-full bg-emerald-400/20 blur-3xl" />
-              <div className="relative">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-300">
-                  Freelance Services
-                </p>
+              <div className="relative grid lg:grid-cols-[1.05fr_0.95fr] gap-6 items-center">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-300">
+                    Freelance Services
+                  </p>
                 <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
-                  Prototype-To-Production Web Builds
+                  Website & Web App Development
                 </h1>
                 <p className="mt-3 max-w-3xl text-slate-200/90">
-                  This page is designed like a mini product discovery experience so clients can quickly understand
-                  what they need, estimate budget range, and submit a guided brief in minutes.
+                  Tell me what you need, your budget range, and target timeline.
+                  I will help you choose the right package and provide a clear quote.
                 </p>
-                <div className="mt-5 flex flex-wrap gap-2 text-xs">
-                  <span className="rounded-full bg-white/10 ring-1 ring-white/20 px-3 py-1 text-slate-100">User-friendly scope guidance</span>
-                  <span className="rounded-full bg-white/10 ring-1 ring-white/20 px-3 py-1 text-slate-100">Transparent pricing bands</span>
-                  <span className="rounded-full bg-white/10 ring-1 ring-white/20 px-3 py-1 text-slate-100">Fast one-click inquiry</span>
                 </div>
+                <FreelanceModelShowcase />
               </div>
             </div>
           </div>
