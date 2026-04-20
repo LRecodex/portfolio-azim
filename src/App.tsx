@@ -104,14 +104,6 @@ type ProjectTypeOption =
   | "Dynamic Website"
   | "Web Application";
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "model-viewer": any;
-    }
-  }
-}
-
 function cn(...classes: Array<string | undefined | false>) {
   return classes.filter(Boolean).join(" ");
 }
@@ -157,7 +149,13 @@ function Section({
           </div>
         </div>
 
-        <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.04)] overflow-hidden">
+        <div className="relative rounded-3xl bg-white/5 ring-1 ring-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.04)] overflow-hidden">
+          <motion.div
+            aria-hidden
+            className="absolute top-0 h-px w-1/3 bg-gradient-to-r from-transparent via-sky-300/80 to-transparent"
+            animate={{ x: ["-30%", "350%"] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+          />
           <div className="p-5 sm:p-7">
             <Stagger active={isInView}>{children}</Stagger>
           </div>
@@ -253,14 +251,17 @@ function Button({
       : "bg-white/5 text-slate-100 ring-1 ring-white/10 hover:bg-white/10";
 
   return (
-    <a
+    <motion.a
       className={cn(base, styles)}
       href={href}
       target="_blank"
       rel="noreferrer"
+      whileHover={{ y: -2, scale: 1.01 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 320, damping: 20 }}
     >
       {children}
-    </a>
+    </motion.a>
   );
 }
 
@@ -300,7 +301,7 @@ function FreelanceModelShowcase() {
           ar={false}
           disable-pan
           interaction-prompt="auto"
-          camera-orbit="-25deg 78deg 55%"
+          camera-orbit="-25deg 78deg 20%"
           min-camera-orbit="auto auto 40%"
           max-camera-orbit="auto auto 85%"
           field-of-view="22deg"
@@ -568,13 +569,34 @@ function FreelanceSection() {
 
           <div className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5">
             <h3 className="text-white font-semibold">How your project moves from idea to launch</h3>
+            <div className="relative mt-4 hidden md:block">
+              <div className="h-1 rounded-full bg-white/10 overflow-hidden">
+                <motion.div
+                  className="h-full w-1/3 bg-gradient-to-r from-sky-300 via-emerald-300 to-sky-300"
+                  animate={{ x: ["-110%", "320%"] }}
+                  transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </div>
+            </div>
             <div className="mt-4 grid md:grid-cols-4 gap-3">
               {deliverySteps.map((step, idx) => (
-                <div key={step.title} className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 p-4">
+                <motion.div
+                  key={step.title}
+                  className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 p-4"
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{
+                    duration: 2.6,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    delay: idx * 0.18,
+                    ease: "easeInOut",
+                  }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                >
                   <div className="text-xs text-sky-300 font-semibold">Step {idx + 1}</div>
                   <div className="mt-1 text-sm text-white font-medium">{step.title}</div>
                   <p className="mt-2 text-xs text-slate-300 leading-relaxed">{step.detail}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
