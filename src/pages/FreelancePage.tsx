@@ -33,7 +33,9 @@ export default function FreelancePage() {
                   </a>
                 </div>
               </div>
-              <FreelanceModelShowcase />
+              <div className="hidden md:block">
+                <FreelanceModelShowcase />
+              </div>
             </div>
           </div>
         </div>
