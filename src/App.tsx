@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import {
   motion,
   useInView,
@@ -58,7 +58,6 @@ import {
   SiPostman,
   SiOpenapiinitiative,
   SiFigma,
-  SiAdobeacrobatreader,
 } from "react-icons/si";
 import { FiTerminal, FiWifi, FiCpu } from "react-icons/fi";
 
@@ -92,6 +91,12 @@ type Certificate = {
   issuer: string;
   date?: string;
   file?: string;
+};
+
+type FreelancePricingRow = {
+  item: string;
+  price: string;
+  details: string;
 };
 
 function cn(...classes: Array<string | undefined | false>) {
@@ -246,21 +251,404 @@ function Button({
   );
 }
 
-function Nav() {
-  const items = [
-    { id: "about", label: "About" },
-    { id: "skills", label: "Skills" },
-    { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "education", label: "Education" },
-    { id: "certificates", label: "Certificates" },
-    { id: "contact", label: "Contact" },
+function PricingTable({
+  title,
+  rows,
+}: {
+  title: string;
+  rows: FreelancePricingRow[];
+}) {
+  return (
+    <div className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 overflow-hidden">
+      <div className="px-5 py-4 text-white font-semibold border-b border-white/10">
+        {title}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-[1.1fr_0.8fr_1.2fr] gap-2 px-5 py-2 border-b border-white/10 bg-white/[0.03] text-[11px] tracking-wide uppercase text-slate-400">
+        <div>Item</div>
+        <div>Price</div>
+        <div>Details</div>
+      </div>
+      <div className="divide-y divide-white/10">
+        {rows.map((row) => (
+          <div
+            key={`${title}-${row.item}`}
+            className="grid grid-cols-1 md:grid-cols-[1.1fr_0.8fr_1.2fr] gap-2 px-5 py-3 md:items-center"
+          >
+            <div className="text-sm text-slate-100 font-medium">{row.item}</div>
+            <div className="text-sm text-slate-200/90">{row.price}</div>
+            <div className="text-sm text-slate-300 leading-relaxed">{row.details}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FreelanceSection() {
+  const [isSending, setIsSending] = useState(false);
+  const [sendStatus, setSendStatus] = useState<{
+    type: "idle" | "success" | "error";
+    message: string;
+  }>({ type: "idle", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    projectType: "Static Website",
+    budget: "",
+    message: "",
+  });
+
+  const developmentRows: FreelancePricingRow[] = [
+    {
+      item: "Static Website",
+      price: "RM 800 ± RM 2,500",
+      details: "1 ± 2 revision rounds",
+    },
+    {
+      item: "Dynamic Website",
+      price: "RM 2,500 ± RM 7,000",
+      details: "2 ± 3 revision rounds",
+    },
+    {
+      item: "Web Application",
+      price: "RM 8,000 ± RM 15,000+",
+      details: "3 ± 5 revision rounds",
+    },
   ];
+
+  const hostingRows: FreelancePricingRow[] = [
+    {
+      item: "Domain",
+      price: "RM 50 ± RM 150 / year",
+      details: ".com / .com.my",
+    },
+    {
+      item: "Static Hosting",
+      price: "FREE ± RM 100 / year",
+      details: "Netlify / Vercel",
+    },
+    {
+      item: "Dynamic Hosting",
+      price: "RM 300 ± RM 800 / year",
+      details: "Shared hosting / VPS",
+    },
+    {
+      item: "VPS Server",
+      price: "RM 800 ± RM 2,000+ / year",
+      details: "Recommended for web apps",
+    },
+  ];
+
+  const maintenanceRows: FreelancePricingRow[] = [
+    {
+      item: "Self Maintain",
+      price: "FREE",
+      details: "Client handles everything",
+    },
+    {
+      item: "Basic",
+      price: "RM 100 / month",
+      details: "Backup + updates",
+    },
+    {
+      item: "Standard",
+      price: "RM 200 / month",
+      details: "Support + updates (2 minor changes/month)",
+    },
+    {
+      item: "Premium",
+      price: "RM 400 / month",
+      details: "Full support (5 minor changes/month)",
+    },
+  ];
+
+  const addOnRows: FreelancePricingRow[] = [
+    {
+      item: "Domain Setup",
+      price: "RM 50 ± RM 150",
+      details: "Register domain",
+    },
+    {
+      item: "Hosting Setup",
+      price: "RM 100 ± RM 300",
+      details: "Deploy website",
+    },
+    {
+      item: "Extra Page",
+      price: "RM 150 ± RM 300",
+      details: "Per page",
+    },
+    {
+      item: "Content Upload",
+      price: "RM 100 ± RM 300",
+      details: "Upload content",
+    },
+    {
+      item: "Payment Integration",
+      price: "RM 500 ± RM 1,000",
+      details: "FPX / Stripe",
+    },
+  ];
+
+  const changePolicyRows: FreelancePricingRow[] = [
+    {
+      item: "Minor",
+      price: "RM 50 ± RM 100",
+      details: "Text/image change",
+    },
+    {
+      item: "Medium",
+      price: "RM 100 ± RM 300",
+      details: "Layout adjustment",
+    },
+    {
+      item: "Major",
+      price: "RM 300 ± RM 1,000+",
+      details: "New page",
+    },
+    {
+      item: "Feature",
+      price: "Quote",
+      details: "Login/payment system",
+    },
+  ];
+
+  const emailHref = useMemo(() => {
+    const subject = `Freelance Project Inquiry - ${form.projectType}`;
+    const body = [
+      "Hi Fauzul,",
+      "",
+      `Name: ${form.name || "-"}`,
+      `Email: ${form.email || "-"}`,
+      `Company: ${form.company || "-"}`,
+      `Project Type: ${form.projectType}`,
+      `Budget: ${form.budget || "-"}`,
+      "",
+      "Project Details:",
+      form.message || "-",
+      "",
+      "Thanks.",
+    ].join("\n");
+
+    return `mailto:fauzulazim7473@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }, [form]);
+
+  const handleEmailSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSendStatus({ type: "idle", message: "" });
+    setIsSending(true);
+
+    const payload = {
+      ...form,
+      recipientEmail: "fauzulazim7473@gmail.com",
+      subject: `Freelance Project Inquiry - ${form.projectType}`,
+    };
+
+    fetch("/.netlify/functions/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorBody = (await response.json().catch(() => null)) as
+            | { error?: string }
+            | null;
+          throw new Error(errorBody?.error || "Failed to send email.");
+        }
+        setSendStatus({
+          type: "success",
+          message: "Email sent successfully. I will get back to you soon.",
+        });
+      })
+      .catch((error: unknown) => {
+        const fallbackMessage =
+          error instanceof Error
+            ? error.message
+            : "Failed to send email. Please use the draft email fallback.";
+        setSendStatus({
+          type: "error",
+          message: `${fallbackMessage} You can still use 'Open Draft Email'.`,
+        });
+      })
+      .finally(() => {
+        setIsSending(false);
+      });
+  };
+
+  return (
+    <Section
+      id="freelance"
+      title="Freelance"
+      icon={<Briefcase className="h-5 w-5 text-slate-200" />}
+      subtitle="Freelance web development packages and direct email inquiry."
+    >
+      <div className="grid lg:grid-cols-[1.35fr_0.65fr] gap-6 items-start">
+        <div className="space-y-4">
+          <PricingTable title="Development (One-Time Cost)" rows={developmentRows} />
+          <PricingTable title="Hosting & Domain (Yearly)" rows={hostingRows} />
+          <PricingTable title="Maintenance (Monthly)" rows={maintenanceRows} />
+          <PricingTable title="Revision & Change Policy" rows={changePolicyRows} />
+          <PricingTable title="Add-ons" rows={addOnRows} />
+
+          <div className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5">
+            <div className="text-white font-semibold">Design Responsibility</div>
+            <ul className="mt-3 space-y-2 text-sm text-slate-200/90">
+              <li>Basic layout design is included.</li>
+              <li>Client may provide design (Figma/reference).</li>
+              <li>Full branding/UI design is not included.</li>
+              <li>Major design changes are chargeable.</li>
+            </ul>
+          </div>
+
+          <div className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5">
+            <div className="text-white font-semibold">Terms</div>
+            <ul className="mt-3 space-y-2 text-sm text-slate-200/90">
+              <li>50% upfront, 50% upon completion.</li>
+              <li>Hosting and maintenance are not included in development cost.</li>
+              <li>Client provides content unless otherwise agreed.</li>
+              <li>7 days free support after delivery.</li>
+              <li>Project ownership transfers after full payment.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:sticky lg:top-24">
+          <form
+            onSubmit={handleEmailSubmit}
+            className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 space-y-3"
+          >
+            <div>
+              <div className="text-white font-semibold">Email Inquiry</div>
+              <p className="mt-1 text-sm text-slate-300">
+                One-click send from website via Netlify Function.
+              </p>
+            </div>
+
+            <input
+              value={form.name}
+              onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+              placeholder="Your name"
+              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+              required
+            />
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+              placeholder="Your email"
+              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+              required
+            />
+            <input
+              value={form.company}
+              onChange={(e) => setForm((prev) => ({ ...prev, company: e.target.value }))}
+              placeholder="Company (optional)"
+              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+            />
+
+            <select
+              value={form.projectType}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, projectType: e.target.value }))
+              }
+              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-white/30"
+            >
+              <option className="text-slate-900" value="Static Website">
+                Static Website
+              </option>
+              <option className="text-slate-900" value="Dynamic Website">
+                Dynamic Website
+              </option>
+              <option className="text-slate-900" value="Web Application">
+                Web Application
+              </option>
+            </select>
+
+            <input
+              value={form.budget}
+              onChange={(e) => setForm((prev) => ({ ...prev, budget: e.target.value }))}
+              placeholder="Budget (e.g. RM 3,000 - RM 5,000)"
+              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+            />
+
+            <textarea
+              value={form.message}
+              onChange={(e) => setForm((prev) => ({ ...prev, message: e.target.value }))}
+              placeholder="Project details"
+              rows={5}
+              className="w-full rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-white/30"
+              required
+            />
+
+            <button
+              type="submit"
+              disabled={isSending}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-medium hover:bg-slate-200 transition"
+            >
+              <Mail className="h-4 w-4" />
+              {isSending
+                ? "Sending..."
+                : "Send Inquiry to fauzulazim7473@gmail.com"}
+            </button>
+
+            <a
+              href={emailHref}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white/5 text-slate-100 ring-1 ring-white/10 px-4 py-2 text-sm font-medium hover:bg-white/10 transition"
+            >
+              <ArrowRight className="h-4 w-4" />
+              Open Draft Email
+            </a>
+
+            {sendStatus.type !== "idle" ? (
+              <div
+                className={cn(
+                  "rounded-2xl px-3 py-2 text-xs ring-1",
+                  sendStatus.type === "success"
+                    ? "bg-emerald-500/10 text-emerald-200 ring-emerald-300/20"
+                    : "bg-rose-500/10 text-rose-200 ring-rose-300/20",
+                )}
+              >
+                {sendStatus.message}
+              </div>
+            ) : null}
+
+            <Button href="/docs/web-dev/web_dev_pricing.pdf" variant="ghost">
+              <Download className="h-4 w-4" /> View Pricing PDF
+            </Button>
+          </form>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function Nav({ variant = "home" }: { variant?: "home" | "freelance" }) {
+  const items =
+    variant === "freelance"
+      ? [
+          { href: "/", label: "Home" },
+          { href: "/freelance", label: "Freelance" },
+          { href: "/#contact", label: "Contact" },
+        ]
+      : [
+          { href: "#about", label: "About" },
+          { href: "#skills", label: "Skills" },
+          { href: "#experience", label: "Experience" },
+          { href: "#projects", label: "Projects" },
+          { href: "#education", label: "Education" },
+          { href: "#certificates", label: "Certificates" },
+          { href: "/freelance", label: "Freelance" },
+          { href: "#contact", label: "Contact" },
+        ];
 
   return (
     <div className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="/" className="flex items-center gap-2 group">
           <div className="h-9 w-9 rounded-2xl bg-white/5 ring-1 ring-white/10 flex items-center justify-center">
             <Sparkles className="h-4 w-4 text-slate-200" />
           </div>
@@ -277,8 +665,8 @@ function Nav() {
         <div className="hidden md:flex items-center gap-1">
           {items.map((it) => (
             <a
-              key={it.id}
-              href={`#${it.id}`}
+              key={it.href}
+              href={it.href}
               className="px-3 py-2 rounded-xl text-sm text-slate-300 hover:text-white hover:bg-white/5 transition"
             >
               {it.label}
@@ -289,10 +677,10 @@ function Nav() {
         <div className="flex items-center gap-2">
           <a
             className="hidden sm:inline-flex items-center gap-2 rounded-2xl bg-white/5 ring-1 ring-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
-            href="#contact"
+            href={variant === "freelance" ? "/" : "/freelance"}
           >
             <ArrowRight className="h-4 w-4" />
-            Contact Me
+            {variant === "freelance" ? "Back To Portfolio" : "Freelance Rates"}
           </a>
         </div>
       </div>
@@ -482,7 +870,7 @@ function Hero() {
 
             <p className="mt-4 text-slate-200/90 max-w-2xl">
               Full-stack Software Developer experienced in Laravel/PHP, React
-              (Vite), Node.js, and Flutter—shipping production modules, REST
+              (Vite), Node.js, and Flutter-shipping production modules, REST
               APIs, dashboards, PDF/QR automation, and Dockerized deployments on
               Linux.
             </p>
@@ -524,7 +912,6 @@ function Hero() {
           >
             <div className="rounded-[2rem] bg-white/5 ring-1 ring-white/10 p-4 shadow-[0_30px_120px_-60px_rgba(0,0,0,0.9)]">
               <div className="relative rounded-[1.6rem] overflow-hidden bg-slate-900 ring-1 ring-white/10">
-                {/* Blurred background fill (makes tall images look premium) */}
                 <img
                   src="/avatar.png"
                   alt=""
@@ -532,7 +919,6 @@ function Hero() {
                   className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-35"
                 />
 
-                {/* Main portrait - no awkward cropping */}
                 <div className="relative w-full h-[360px] flex items-center justify-center">
                   <img
                     src="/avatar.png"
@@ -541,7 +927,6 @@ function Hero() {
                   />
                 </div>
 
-                {/* Subtle glossy overlay */}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-white/5" />
               </div>
 
@@ -633,9 +1018,9 @@ export default function App() {
       bg: "bg-sky-500/15",
     },
     "PDF/QR": {
-      icon: SiAdobeacrobatreader,
-      tint: "text-red-200",
-      bg: "bg-red-500/15",
+      icon: FiTerminal,
+      tint: "text-slate-200",
+      bg: "bg-slate-500/20",
     },
   };
 
@@ -701,7 +1086,7 @@ export default function App() {
     {
       company: "Blyon Group Berhad",
       role: "Software Engineer",
-      period: "Feb 2026 – Current",
+      period: "Feb 2026 - Current",
       bullets: [
         "Developing and maintaining secure, scalable web applications using Laravel and modern JavaScript frameworks.",
         "Designed and optimized backend architectures, improving database performance and reducing query execution time.",
@@ -712,18 +1097,18 @@ export default function App() {
     {
       company: "Bytes Security Malaysia PLT",
       role: "Software Engineer",
-      period: "Feb 2025 – January 2026",
+      period: "Feb 2025 - January 2026",
       bullets: [
         "Contributed to secure web application development using Laravel and JavaScript frameworks.",
         "Optimized backend processes and database queries to improve efficiency and code quality.",
         "Collaborated with cross-functional teams to troubleshoot and deliver fixes/features on time.",
       ],
     },
-    
+
     {
       company: "Bytes Security Malaysia PLT",
       role: "Part-time Junior Software Engineer",
-      period: "Dec 2024 – Jan 2025",
+      period: "Dec 2024 - Jan 2025",
       bullets: [
         "Implemented bug fixes and small features across Laravel and JavaScript codebases.",
         "Wrote unit/feature tests and refactored queries to reduce load and simplify maintenance.",
@@ -732,7 +1117,7 @@ export default function App() {
     {
       company: "MSC Management Service Sdn Bhd",
       role: "Intern Full Stack Developer",
-      period: "Dec 2024 – Jan 2025",
+      period: "Dec 2024 - Jan 2025",
       bullets: [
         "Developed and maintained web/mobile apps using Laravel, Node.js, and Flutter.",
         "Automated workflows for counseling session registration and case management (+30% efficiency).",
@@ -744,7 +1129,7 @@ export default function App() {
   const projects: Project[] = [
     {
       name: "BMS Fastentix",
-      period: "Dec 2024 – Present",
+      period: "Dec 2024 - Present",
       description:
         "Multi-tenant business platform modules: dashboards, payments, PDF/QR generation, and reliability improvements.",
       tags: ["Laravel", "JS", "MySQL", "Queues", "Docker", "Linux", "Supervisor", "Postman"],
@@ -827,17 +1212,17 @@ export default function App() {
     },
     {
       name: "YKN (Yayasan Kebajikan Negara)",
-      period: "Aug 2024 – Dec 2024",
+      period: "Aug 2024 - Dec 2024",
       description:
         "Built scalable modules for operational workflows, reporting, and integrations in a production environment.",
       tags: ["Laravel", "REST API", "MySQL"],
     },
     {
       name: "Mosque Financial Management System",
-      period: "May 2023 – May 2024",
+      period: "May 2023 - May 2024",
       description:
         "Finance management features with structured data modeling and clear user flows for tracking and reporting.",
-      tags: ["Web App", "SQL", "Node.js", "Express", "Docker", "PostgreSQL" ],
+      tags: ["Web App", "SQL", "Node.js", "Express", "Docker", "PostgreSQL"],
     },
   ];
 
@@ -846,12 +1231,12 @@ export default function App() {
       school: "University Malaysia Terengganu",
       program:
         "Bachelor of Computer Science (Software Engineering) with Honors",
-      period: "Oct 2022 – Jan 2025",
+      period: "Oct 2022 - Jan 2025",
     },
     {
       school: "Perak Matriculation College",
       program: "Pre-University Studies",
-      period: "2021 – 2022",
+      period: "2021 - 2022",
     },
   ];
 
@@ -1006,11 +1391,60 @@ export default function App() {
     },
   ];
 
+  const pathname =
+    typeof window !== "undefined"
+      ? window.location.pathname.replace(/\/+$/, "") || "/"
+      : "/";
+  const isFreelancePage = pathname === "/freelance";
+
+  if (isFreelancePage) {
+    return (
+      <div className="min-h-screen bg-slate-950 relative overflow-hidden">
+        <AnimatedBackground parallaxA={blobDrift} parallaxB={blobLift} />
+        <FloatingShapes drift={shapeDrift} />
+        <Nav variant="freelance" />
+
+        <header className="relative">
+          <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-14 pb-2">
+            <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-6 sm:p-8">
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                Freelance Services
+              </p>
+              <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
+                Web Development Packages & One-Click Inquiry
+              </h1>
+              <p className="mt-3 max-w-3xl text-slate-300">
+                Clear pricing, transparent terms, and direct inquiry sending to
+                <span className="text-white font-medium"> fauzulazim7473@gmail.com</span>.
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <FreelanceSection />
+
+        <footer className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pb-10">
+          <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="text-sm text-slate-300">
+              &copy; {new Date().getFullYear()} Muhammad Fauzul Azim Bin Imran Hayat
+            </div>
+            <a
+              href="/"
+              className="text-xs text-slate-300 hover:text-white transition"
+            >
+              Back to main portfolio
+            </a>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-950 relative overflow-hidden">
       <AnimatedBackground parallaxA={blobDrift} parallaxB={blobLift} />
       <FloatingShapes drift={shapeDrift} />
-      <Nav />
+      <Nav variant="home" />
       <Hero />
 
       <Section
@@ -1022,7 +1456,7 @@ export default function App() {
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
           <div className="space-y-4 text-slate-200/90 leading-relaxed">
             <p>
-              I’m{" "}
+              I'm{" "}
               <span className="font-semibold text-white">
                 Muhammad Fauzul Azim Bin Imran Hayat
               </span>
@@ -1030,7 +1464,7 @@ export default function App() {
               feel fast, stable, secure and easy to maintain.
             </p>
             <p>
-              I’ve shipped real modules across web and mobile: REST APIs,
+              I've shipped real modules across web and mobile: REST APIs,
               background jobs/queues, dashboards, PDF/QR automation, and
               Docker-based deployments on Linux.
             </p>
@@ -1265,11 +1699,11 @@ export default function App() {
         <div className="grid lg:grid-cols-[1fr] gap-6 items-start">
           <div className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5">
             <div className="text-white font-semibold">
-              Let’s build something great.
+              Let's build something great.
             </div>
             <p className="mt-2 text-sm text-slate-200/90">
               If you want someone who can ship end-to-end (backend, frontend,
-              deployment), I’m happy to talk.
+              deployment), I'm happy to talk.
             </p>
 
             <div className="mt-4 space-y-3 text-sm text-slate-200/90">
@@ -1312,7 +1746,7 @@ export default function App() {
       <footer className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pb-10">
         <div className="rounded-3xl bg-white/5 ring-1 ring-white/10 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
           <div className="text-sm text-slate-300">
-            © {new Date().getFullYear()} Muhammad Fauzul Azim Bin Imran Hayat
+            &copy; {new Date().getFullYear()} Muhammad Fauzul Azim Bin Imran Hayat
           </div>
           <div className="text-xs text-slate-400">
             Turning ideas into production-ready systems.
