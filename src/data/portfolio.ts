@@ -28,14 +28,17 @@ import {
   SiMongodb,
   SiMysql,
   SiNginx,
+  SiNextdotjs,
   SiOpenapiinitiative,
   SiPhp,
   SiPostgresql,
   SiPostman,
+  SiPrisma,
   SiPython,
   SiReact,
   SiRedhatopenshift,
   SiSqlite,
+  SiSupabase,
   SiTypescript,
 } from "react-icons/si";
 import { FiCpu, FiTerminal, FiWifi } from "react-icons/fi";
@@ -101,6 +104,11 @@ export const skillItemMeta: Record<
   "C#": { icon: SiDotnet, tint: "text-fuchsia-200", bg: "bg-fuchsia-500/15" },
   Laravel: { icon: SiLaravel, tint: "text-rose-200", bg: "bg-rose-500/15" },
   React: { icon: SiReact, tint: "text-sky-200", bg: "bg-sky-500/15" },
+  "Next.js": {
+    icon: SiNextdotjs,
+    tint: "text-slate-100",
+    bg: "bg-slate-500/25",
+  },
   "Node.js (Express)": {
     icon: SiExpress,
     tint: "text-slate-100",
@@ -112,9 +120,11 @@ export const skillItemMeta: Record<
   GTK: { icon: SiGtk, tint: "text-slate-200", bg: "bg-slate-500/20" },
   MySQL: { icon: SiMysql, tint: "text-blue-200", bg: "bg-blue-500/15" },
   PostgreSQL: { icon: SiPostgresql, tint: "text-indigo-200", bg: "bg-indigo-500/15" },
+  Supabase: { icon: SiSupabase, tint: "text-emerald-200", bg: "bg-emerald-500/15" },
   MongoDB: { icon: SiMongodb, tint: "text-emerald-200", bg: "bg-emerald-500/15" },
   Firebase: { icon: SiFirebase, tint: "text-amber-200", bg: "bg-amber-500/15" },
   SQLite: { icon: SiSqlite, tint: "text-slate-200", bg: "bg-slate-500/20" },
+  Prisma: { icon: SiPrisma, tint: "text-cyan-200", bg: "bg-cyan-500/15" },
   Docker: { icon: SiDocker, tint: "text-sky-200", bg: "bg-sky-500/15" },
   Kubernetes: { icon: SiKubernetes, tint: "text-indigo-200", bg: "bg-indigo-500/15" },
   OpenShift: {
@@ -160,6 +170,7 @@ export const skills: SkillGroup[] = [
     items: [
       "Laravel",
       "React",
+      "Next.js",
       "Node.js (Express)",
       "Flutter",
       "Django",
@@ -172,7 +183,7 @@ export const skills: SkillGroup[] = [
     icon: Database,
     tint: "text-amber-300",
     bg: "bg-amber-500/10",
-    items: ["MySQL", "PostgreSQL", "MongoDB", "Firebase", "SQLite"],
+    items: ["MySQL", "PostgreSQL", "Supabase", "MongoDB", "Firebase", "SQLite", "Prisma"],
   },
   {
     title: "DevOps",
@@ -243,6 +254,29 @@ export const experience: Experience[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    name: "Fintel (Finance Intelligence)",
+    period: "Apr 2026 - Present",
+    description:
+      "Personal finance intelligence web app with onboarding, category and transaction tracking, budget planning, goals, and AI-assisted insights. Built with provider-aware database support (MySQL and Supabase Postgres) plus Prisma-driven migrations and sync workflows.",
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Prisma",
+      "MySQL",
+      "Supabase Postgres",
+      "Tailwind CSS",
+      "Finance App",
+    ],
+    links: [
+      {
+        label: "Live Site",
+        href: "https://fintel.fauzulazim.com",
+        kind: "demo",
+      },
+    ],
+  },
   {
     name: "BMS Fastentix",
     period: "Dec 2024 - Present",
