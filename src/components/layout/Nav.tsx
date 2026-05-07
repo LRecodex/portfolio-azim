@@ -34,6 +34,7 @@ export default function Nav({ variant = "home" }: NavProps) {
 
   const sideHref = variant === "home" ? "/freelance" : "/";
   const sideLabel = variant === "home" ? "Services" : "Back To Portfolio";
+  const showSideCta = variant !== "home";
 
   return (
     <div className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/10">
@@ -68,13 +69,15 @@ export default function Nav({ variant = "home" }: NavProps) {
         </div>
 
           <div className="flex items-center gap-2">
-          <a
-            className="hidden sm:inline-flex items-center gap-2 rounded-2xl bg-white/5 ring-1 ring-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
-            href={sideHref}
-          >
-            <ArrowRight className="h-4 w-4" />
-            {sideLabel}
-          </a>
+          {showSideCta ? (
+            <a
+              className="hidden sm:inline-flex items-center gap-2 rounded-2xl bg-white/5 ring-1 ring-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
+              href={sideHref}
+            >
+              <ArrowRight className="h-4 w-4" />
+              {sideLabel}
+            </a>
+          ) : null}
             <button
               type="button"
               className="md:hidden inline-flex items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 p-2.5 text-slate-200 hover:bg-white/10 transition"
@@ -99,14 +102,16 @@ export default function Nav({ variant = "home" }: NavProps) {
                 {it.label}
               </a>
             ))}
-            <a
-              className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white/5 ring-1 ring-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/10 transition"
-              href={sideHref}
-              onClick={() => setMobileOpen(false)}
-            >
-              <ArrowRight className="h-4 w-4" />
-              {sideLabel}
-            </a>
+            {showSideCta ? (
+              <a
+                className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white/5 ring-1 ring-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/10 transition"
+                href={sideHref}
+                onClick={() => setMobileOpen(false)}
+              >
+                <ArrowRight className="h-4 w-4" />
+                {sideLabel}
+              </a>
+            ) : null}
           </div>
         ) : null}
       </div>
