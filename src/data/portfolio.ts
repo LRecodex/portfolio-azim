@@ -285,6 +285,25 @@ export const projects: Project[] = [
     tags: ["Laravel", "JS", "MySQL", "Queues", "Docker", "Linux", "Supervisor", "Postman"],
   },
   {
+    name: "QR Generator",
+    period: "2026",
+    description:
+      "Web-based QR Generator that creates polished, marketing-ready PNG files from URLs with live preview, optional center-logo branding, promo text overlays, social-ready presets (square/story/custom), and full color/size customization.",
+    tags: [
+      "Node.js",
+      "Express",
+      "Multer",
+      "qrcode",
+      "Sharp",
+      "CORS",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Fetch API",
+      "FormData",
+    ],
+  },
+  {
     name: "Remote Mouse",
     period: "Nov 2025",
     description:
