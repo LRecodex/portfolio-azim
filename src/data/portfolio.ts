@@ -302,6 +302,13 @@ export const projects: Project[] = [
       "Fetch API",
       "FormData",
     ],
+    links: [
+      {
+        label: "GitHub Repo",
+        href: "https://github.com/LRecodex/QR-Gen",
+        kind: "repo",
+      },
+    ],
   },
   {
     name: "Remote Mouse",
