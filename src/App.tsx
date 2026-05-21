@@ -3,6 +3,7 @@ import AnimatedBackground from "./components/background/AnimatedBackground";
 import FloatingShapes from "./components/background/FloatingShapes";
 import FreelancePage from "./pages/FreelancePage";
 import HomePage from "./pages/HomePage";
+import LovePage from "./pages/LovePage";
 import QuoteEstimatorPage from "./pages/QuoteEstimatorPage";
 
 export default function App() {
@@ -19,7 +20,12 @@ export default function App() {
 
   const isFreelancePage = pathname === "/freelance";
   const isQuoteEstimatorPage = pathname === "/quote-estimator";
+  const isLovePage = pathname === "/bubu-dudu";
   const motionLite = reduceMotion || isFreelancePage || isQuoteEstimatorPage;
+
+  if (isLovePage) {
+    return <LovePage />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 relative overflow-hidden">
