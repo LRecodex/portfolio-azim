@@ -107,6 +107,60 @@ export default function LovePage() {
             ))}
           </div>
 
+          <div className="mt-12 relative rounded-3xl border border-pink-100/20 bg-gradient-to-br from-[#2b0014]/70 via-[#61002f]/70 to-[#ff3d7f]/40 p-5 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none">
+              <span className="love-float-heart" style={{ left: "10%", animationDelay: "0s" }}>
+                ❤️
+              </span>
+              <span className="love-float-heart" style={{ left: "20%", animationDelay: "1s" }}>
+                💖
+              </span>
+              <span className="love-float-heart" style={{ left: "35%", animationDelay: "2s" }}>
+                💕
+              </span>
+              <span className="love-float-heart" style={{ left: "50%", animationDelay: "3s" }}>
+                💘
+              </span>
+              <span className="love-float-heart" style={{ left: "65%", animationDelay: "1.5s" }}>
+                ❤️
+              </span>
+              <span className="love-float-heart" style={{ left: "80%", animationDelay: "4s" }}>
+                💞
+              </span>
+              <span className="love-float-heart" style={{ left: "90%", animationDelay: "2.5s" }}>
+                💓
+              </span>
+            </div>
+
+            <svg viewBox="0 0 1000 300" className="w-full max-w-[1100px] mx-auto overflow-visible relative z-10">
+              <defs>
+                <linearGradient id="loveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#ff7eb6" />
+                  <stop offset="50%" stopColor="#ffffff" />
+                  <stop offset="100%" stopColor="#ff3d7f" />
+                </linearGradient>
+
+                <filter id="loveGlow">
+                  <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <text
+                x="50%"
+                y="50%"
+                dominantBaseline="middle"
+                textAnchor="middle"
+                className="love-text-svg"
+              >
+                Azim & Farah Forever
+              </text>
+            </svg>
+          </div>
+
           <div className="mt-12">
             <div className="text-[120px] md:text-[180px] drop-shadow-[0_0_40px_red] animate-heartbeat">❤️</div>
           </div>
@@ -335,6 +389,79 @@ export default function LovePage() {
           }
           50% {
             transform: translateY(6px);
+          }
+        }
+
+        .love-text-svg {
+          fill: transparent;
+          stroke: url(#loveGradient);
+          stroke-width: 3;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          font-size: 72px;
+          font-weight: bold;
+          font-family: "Segoe Script", cursive;
+          stroke-dasharray: 1400;
+          stroke-dashoffset: 1400;
+          animation: loveWrite 6s ease-in-out infinite, loveGlow 2s ease-in-out infinite;
+          filter: url(#loveGlow);
+        }
+
+        .love-float-heart {
+          position: absolute;
+          bottom: 0;
+          color: #ffd6e5;
+          font-size: 22px;
+          opacity: 0;
+          animation: loveFloatMain 6s linear infinite;
+        }
+
+        @keyframes loveWrite {
+          0% {
+            stroke-dashoffset: 1400;
+            fill: transparent;
+          }
+          45% {
+            stroke-dashoffset: 0;
+            fill: transparent;
+          }
+          65% {
+            stroke-dashoffset: 0;
+            fill: #ffd5e5;
+          }
+          85% {
+            stroke-dashoffset: 0;
+            fill: #ffd5e5;
+            opacity: 1;
+          }
+          100% {
+            stroke-dashoffset: -1400;
+            fill: transparent;
+            opacity: 0;
+          }
+        }
+
+        @keyframes loveGlow {
+          0%,
+          100% {
+            filter: drop-shadow(0 0 10px #ff7eb6) drop-shadow(0 0 25px #ff4f95);
+          }
+          50% {
+            filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 40px #ff5fa2);
+          }
+        }
+
+        @keyframes loveFloatMain {
+          0% {
+            transform: translateY(40px) scale(0.5);
+            opacity: 0;
+          }
+          20% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(-360px) scale(1.5);
+            opacity: 0;
           }
         }
       `}</style>
