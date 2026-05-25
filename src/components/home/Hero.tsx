@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FileText, Github, Layers, Linkedin, MapPin } from "lucide-react";
+import { Github, Layers, Linkedin, MapPin } from "lucide-react";
 import GlowBlobs from "../background/GlowBlobs";
 import Button from "../ui/Button";
 import Pill from "../ui/Pill";
@@ -56,10 +56,6 @@ export default function Hero() {
               >
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </Button>
-              <Button variant="ghost" href="/resume-cover-letter">
-                <FileText className="h-4 w-4" /> Resume & Cover Letter
-              </Button>
-
             </div>
           </motion.div>
 
