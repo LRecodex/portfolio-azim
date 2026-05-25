@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, Github, Layers, Linkedin, MapPin } from "lucide-react";
+import { FileText, Github, Layers, Linkedin, MapPin } from "lucide-react";
 import GlowBlobs from "../background/GlowBlobs";
 import Button from "../ui/Button";
 import Pill from "../ui/Pill";
@@ -33,13 +33,14 @@ export default function Hero() {
             </h2>
 
             <p className="mt-4 text-slate-200/90 max-w-2xl">
-              Full-stack Software Developer experienced in Laravel/PHP, React (Vite), Node.js, and Flutter-shipping production modules, REST APIs, dashboards, PDF/QR automation, and Dockerized deployments on Linux.
+              Full-stack Software Engineer experienced in Laravel/PHP, React, Node.js, NestJS, and Flutter, shipping production modules, REST APIs, dashboards, PDF/QR automation, and Dockerized deployments on Linux.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-2">
               <Pill>Laravel</Pill>
               <Pill>React + Vite</Pill>
               <Pill>Node.js</Pill>
+              <Pill>NestJS</Pill>
               <Pill>Flutter</Pill>
               <Pill>Docker</Pill>
               <Pill>MySQL / PostgreSQL</Pill>
@@ -55,13 +56,10 @@ export default function Hero() {
               >
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </Button>
-
-              <Button
-                variant="ghost"
-                href="/docs/certificate/Resume_Muhammad_Fauzul_Azim_Bin_Imran_Hayat.pdf"
-              >
-                <Download className="h-4 w-4" /> Resume
+              <Button variant="ghost" href="/resume-cover-letter">
+                <FileText className="h-4 w-4" /> Resume & Cover Letter
               </Button>
+
             </div>
           </motion.div>
 

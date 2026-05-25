@@ -5,6 +5,7 @@ import FreelancePage from "./pages/FreelancePage";
 import HomePage from "./pages/HomePage";
 import LovePage from "./pages/LovePage";
 import QuoteEstimatorPage from "./pages/QuoteEstimatorPage";
+import ResumeCoverLetterPage from "./pages/ResumeCoverLetterPage";
 
 export default function App() {
   const { scrollY } = useScroll();
@@ -20,6 +21,7 @@ export default function App() {
 
   const isFreelancePage = pathname === "/freelance";
   const isQuoteEstimatorPage = pathname === "/quote-estimator";
+  const isResumeCoverLetterPage = pathname === "/resume-cover-letter";
   const isLovePage = pathname === "/bubu-dudu";
   const motionLite = reduceMotion || isFreelancePage || isQuoteEstimatorPage;
 
@@ -35,6 +37,8 @@ export default function App() {
         <FreelancePage />
       ) : isQuoteEstimatorPage ? (
         <QuoteEstimatorPage />
+      ) : isResumeCoverLetterPage ? (
+        <ResumeCoverLetterPage />
       ) : (
         <HomePage />
       )}

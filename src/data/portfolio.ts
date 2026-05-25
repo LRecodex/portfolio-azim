@@ -18,6 +18,7 @@ import {
   SiFirebase,
   SiFlask,
   SiFlutter,
+  SiGraphql,
   SiGithub,
   SiGitlab,
   SiGtk,
@@ -27,6 +28,7 @@ import {
   SiLinux,
   SiMongodb,
   SiMysql,
+  SiNestjs,
   SiNginx,
   SiNextdotjs,
   SiOpenapiinitiative,
@@ -114,6 +116,7 @@ export const skillItemMeta: Record<
     tint: "text-slate-100",
     bg: "bg-slate-500/25",
   },
+  NestJS: { icon: SiNestjs, tint: "text-rose-200", bg: "bg-rose-500/15" },
   Flutter: { icon: SiFlutter, tint: "text-sky-200", bg: "bg-sky-500/15" },
   Django: { icon: SiDjango, tint: "text-emerald-200", bg: "bg-emerald-500/15" },
   Flask: { icon: SiFlask, tint: "text-amber-200", bg: "bg-amber-500/15" },
@@ -147,6 +150,7 @@ export const skillItemMeta: Record<
     tint: "text-sky-200",
     bg: "bg-sky-500/15",
   },
+  GraphQL: { icon: SiGraphql, tint: "text-pink-200", bg: "bg-pink-500/15" },
   "PDF/QR": {
     icon: FiTerminal,
     tint: "text-slate-200",
@@ -172,6 +176,7 @@ export const skills: SkillGroup[] = [
       "React",
       "Next.js",
       "Node.js (Express)",
+      "NestJS",
       "Flutter",
       "Django",
       "Flask",
@@ -206,7 +211,7 @@ export const skills: SkillGroup[] = [
     icon: Wrench,
     tint: "text-rose-300",
     bg: "bg-rose-500/10",
-    items: ["GitHub", "GitLab", "Postman", "WebSocket", "REST API", "UI/UX", "PDF/QR"],
+    items: ["GitHub", "GitLab", "Postman", "WebSocket", "REST API", "GraphQL", "UI/UX", "PDF/QR"],
   },
 ];
 
@@ -216,29 +221,22 @@ export const experience: Experience[] = [
     role: "Software Engineer",
     period: "Feb 2026 - Current",
     bullets: [
-      "Developing and maintaining secure, scalable web applications using Laravel and modern JavaScript frameworks.",
-      "Designed and optimized backend architectures, improving database performance and reducing query execution time.",
-      "Implemented API integrations and enhanced system reliability through robust error handling and validation.",
-      "Collaborating with cross-functional teams to deliver high-quality features and resolve production issues efficiently.",
+      "Developed full-stack Laravel business modules with responsive interfaces and backend workflows.",
+      "Built and maintained REST API integrations using Laravel and Node.js patterns with validation, error handling, and production reliability in mind.",
+      "Optimized MySQL queries and application logic to improve performance across business operations.",
+      "Collaborated with teams to troubleshoot production issues and deliver features efficiently.",
     ],
   },
   {
     company: "Bytes Security Malaysia PLT",
-    role: "Software Engineer",
-    period: "Feb 2025 - January 2026",
+    role: "Software Engineer (Part-time Junior to Full-time)",
+    period: "Dec 2024 - January 2026",
     bullets: [
-      "Contributed to secure web application development using Laravel and JavaScript frameworks.",
-      "Optimized backend processes and database queries to improve efficiency and code quality.",
-      "Collaborated with cross-functional teams to troubleshoot and deliver fixes/features on time.",
-    ],
-  },
-  {
-    company: "Bytes Security Malaysia PLT",
-    role: "Part-time Junior Software Engineer",
-    period: "Dec 2024 - Jan 2025",
-    bullets: [
+      "Built and enhanced secure Laravel web applications with JavaScript-based interfaces.",
+      "Implemented backend logic, authentication flows, validation, and database-driven features.",
+      "Improved backend performance, code quality, and maintainability within project timelines.",
       "Implemented bug fixes and small features across Laravel and JavaScript codebases.",
-      "Wrote unit/feature tests and refactored queries to reduce load and simplify maintenance.",
+      "Wrote unit and feature tests and refactored queries to reduce load and simplify maintenance.",
     ],
   },
   {
@@ -246,9 +244,9 @@ export const experience: Experience[] = [
     role: "Intern Full Stack Developer",
     period: "Dec 2024 - Jan 2025",
     bullets: [
-      "Developed and maintained web/mobile apps using Laravel, Node.js, and Flutter.",
-      "Automated workflows for counseling session registration and case management (+30% efficiency).",
-      "Designed REST APIs and improved DB performance (reduced query time up to ~40%).",
+      "Developed web and mobile modules using Laravel, Node.js, Express.js, and Flutter.",
+      "Automated workflows improving operational efficiency by approximately 30%.",
+      "Optimized database queries reducing execution time by approximately 40%.",
     ],
   },
 ];
@@ -258,7 +256,7 @@ export const projects: Project[] = [
     name: "Fintel (Finance Intelligence)",
     period: "Apr 2026 - Present",
     description:
-      "Personal finance intelligence web app with onboarding, category and transaction tracking, budget planning, goals, and AI-assisted insights. Built with provider-aware database support (MySQL and Supabase Postgres) plus Prisma-driven migrations and sync workflows.",
+      "Designed and developing an intelligent finance management system using Next.js, TypeScript, and MySQL. Includes an AI-driven budgeting engine that analyzes spending behavior, generates budgets, and provides savings recommendations.",
     tags: [
       "Next.js",
       "React",
@@ -281,8 +279,8 @@ export const projects: Project[] = [
     name: "BMS Fastentix",
     period: "Dec 2024 - Present",
     description:
-      "Multi-tenant business platform modules: dashboards, payments, PDF/QR generation, and reliability improvements.",
-    tags: ["Laravel", "JS", "MySQL", "Queues", "Docker", "Linux", "Supervisor", "Postman"],
+      "Built a multi-tenant business platform including dashboards, inventory, reseller subscriptions, payment and invoice modules. Developed responsive admin interfaces, REST APIs, PDF/QR generation, and reporting workflows with production reliability improvements.",
+    tags: ["Laravel", "JavaScript", "MySQL", "REST API", "Docker", "Linux", "Supervisor", "Postman"],
   },
   {
     name: "QR Generator",
@@ -390,15 +388,15 @@ export const projects: Project[] = [
     name: "YKN (Yayasan Kebajikan Negara)",
     period: "Aug 2024 - Dec 2024",
     description:
-      "Built scalable modules for operational workflows, reporting, and integrations in a production environment.",
-    tags: ["Laravel", "REST API", "MySQL"],
+      "Developed a welfare care and counselling system for YKN counsellors to manage programs, events, clients, appointments, assessments, referrals, and reporting workflows.",
+    tags: ["Laravel", "REST API", "MySQL", "Dashboard", "Reporting"],
   },
   {
     name: "Mosque Financial Management System",
     period: "May 2023 - May 2024",
     description:
-      "Finance management features with structured data modeling and clear user flows for tracking and reporting.",
-    tags: ["Web App", "SQL", "Node.js", "Express", "Docker", "PostgreSQL"],
+      "Developed a SaaS multi-tenant mosque finance system with cashbook, ledger, bank reconciliation, accounts payable/receivable, dashboards, and reporting, including subscription management and Stripe integration.",
+    tags: ["Node.js", "Express", "React", "PostgreSQL", "SaaS", "Stripe"],
   },
 ];
 
