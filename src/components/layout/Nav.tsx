@@ -1,12 +1,25 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
+import { useActiveSection } from "../../lib/useActiveSection";
 
 type NavProps = {
   variant?: "home" | "freelance" | "estimator";
 };
 
+const HOME_SECTION_IDS = [
+  "about",
+  "skills",
+  "experience",
+  "projects",
+  "education",
+  "certificates",
+  "contact",
+];
+
 export default function Nav({ variant = "home" }: NavProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const active = useActiveSection(variant === "home" ? HOME_SECTION_IDS : []);
 
   const items =
     variant === "freelance"
@@ -41,12 +54,10 @@ export default function Nav({ variant = "home" }: NavProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex items-center justify-between gap-4">
         <a href="/" className="flex items-center gap-2 group">
-          <div className="h-9 w-9 rounded-2xl bg-white/5 ring-1 ring-white/10 flex items-center justify-center">
-            <img
-              src="/avatar.png"
-              alt="Muhammad Fauzul Azim"
-              className="h-8 w-8 rounded-xl object-cover"
-            />
+          <div className="relative h-9 w-9 rounded-2xl bg-gradient-to-br from-sky-400 via-indigo-500 to-emerald-400 flex items-center justify-center ring-1 ring-white/15 shadow-[0_4px_16px_-4px_rgba(99,102,241,0.7)] transition-transform group-hover:scale-105">
+            <span className="font-display text-sm font-bold tracking-tight text-slate-950">
+              FA
+            </span>
           </div>
           <div className="leading-tight">
             <div className="text-sm font-semibold tracking-tight">Muhammad Fauzul Azim</div>
@@ -57,15 +68,31 @@ export default function Nav({ variant = "home" }: NavProps) {
         </a>
 
         <div className="hidden md:flex items-center gap-1">
-          {items.map((it) => (
-            <a
-              key={it.href}
-              href={it.href}
-              className="px-3 py-2 rounded-xl text-sm text-slate-300 hover:text-white hover:bg-white/5 transition"
-            >
-              {it.label}
-            </a>
-          ))}
+          {items.map((it) => {
+            const isActive =
+              variant === "home" && it.href === `#${active}`;
+            return (
+              <a
+                key={it.href}
+                href={it.href}
+                aria-current={isActive ? "true" : undefined}
+                className={`relative px-3 py-2 rounded-xl text-sm transition ${
+                  isActive
+                    ? "text-white"
+                    : "text-slate-300 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {isActive ? (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 rounded-xl bg-white/10 ring-1 ring-white/15"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                ) : null}
+                <span className="relative">{it.label}</span>
+              </a>
+            );
+          })}
         </div>
 
           <div className="flex items-center gap-2">

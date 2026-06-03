@@ -7,6 +7,12 @@
 /* Smooth fonts + better rendering */
 :root {
   color-scheme: dark;
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html, body, #root {
@@ -15,6 +21,39 @@ html, body, #root {
 
 body {
   @apply bg-slate-950 text-slate-100 antialiased;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Nicer text selection */
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #fff;
+}
+
+/* Refined scrollbar */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(99, 102, 241, 0.55), rgba(14, 165, 233, 0.55));
+    border-radius: 9999px;
+    border: 2px solid rgba(2, 6, 23, 0.9);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(99, 102, 241, 0.85), rgba(14, 165, 233, 0.85));
+  }
 }
 
 /* Subtle grid texture */
@@ -23,4 +62,80 @@ body {
     linear-gradient(to right, rgba(148,163,184,0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(148,163,184,0.07) 1px, transparent 1px);
   background-size: 42px 42px;
+}
+
+/* Animated gradient text */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    #93c5fd 0%,
+    #c4b5fd 25%,
+    #6ee7b7 50%,
+    #c4b5fd 75%,
+    #93c5fd 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: text-shimmer 6s linear infinite;
+}
+
+@keyframes text-shimmer {
+  to {
+    background-position: 220% center;
+  }
+}
+
+/* Conic gradient ring (avatar / accents) */
+.ring-conic {
+  background: conic-gradient(
+    from 0deg,
+    rgba(59, 130, 246, 0.9),
+    rgba(168, 85, 247, 0.9),
+    rgba(16, 185, 129, 0.9),
+    rgba(59, 130, 246, 0.9)
+  );
+  animation: spin-slow 8s linear infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mouse-following spotlight surface */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(129, 140, 248, 0.16),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .text-gradient,
+  .ring-conic {
+    animation: none;
+  }
 }

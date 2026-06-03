@@ -8,10 +8,11 @@ type SectionProps = {
   title: string;
   subtitle?: string;
   icon?: ReactNode;
+  index?: number;
   children: ReactNode;
 };
 
-export default function Section({ id, title, icon, subtitle, children }: SectionProps) {
+export default function Section({ id, title, icon, subtitle, index, children }: SectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: "-80px", once: true });
   const reduceMotion = useReducedMotion();
@@ -27,6 +28,14 @@ export default function Section({ id, title, icon, subtitle, children }: Section
       >
         <div className="flex items-end justify-between gap-6 mb-7">
           <div>
+            {typeof index === "number" ? (
+              <div className="mb-3 flex items-center gap-3">
+                <span className="font-mono text-xs font-semibold tracking-[0.3em] text-indigo-300/80">
+                  {String(index).padStart(2, "0")}
+                </span>
+                <span className="h-px w-10 bg-gradient-to-r from-indigo-400/60 to-transparent" />
+              </div>
+            ) : null}
             <div className="flex items-center gap-3">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
                 {icon}

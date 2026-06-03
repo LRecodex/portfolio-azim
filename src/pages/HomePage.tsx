@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   Award,
   Briefcase,
@@ -20,15 +19,20 @@ import Button from "../components/ui/Button";
 import Pill from "../components/ui/Pill";
 import Section from "../components/ui/Section";
 import SkillPill from "../components/ui/SkillPill";
+import SpotlightCard from "../components/ui/SpotlightCard";
+import ScrollProgress from "../components/ui/ScrollProgress";
+import ScrollToTop from "../components/ui/ScrollToTop";
 
 export default function HomePage() {
   return (
     <>
+      <ScrollProgress />
       <Nav variant="home" />
       <Hero />
 
       <Section
         id="about"
+        index={1}
         title="About"
         icon={<Code2 className="h-5 w-5 text-slate-200" />}
         subtitle="Software engineer with a passion for clean architecture and deployment."
@@ -98,16 +102,14 @@ export default function HomePage() {
 
       <Section
         id="skills"
+        index={2}
         title="Skills"
         icon={<Layers className="h-5 w-5 text-slate-200" />}
         subtitle="A battle-tested stack for web, mobile, and system development."
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {skills.map((group) => (
-            <div
-              key={group.title}
-              className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 hover:bg-white/5 transition"
-            >
+            <SpotlightCard key={group.title} className="p-5">
               <div className="flex items-center gap-2 text-sm font-semibold text-white">
                 {group.icon ? (
                   <span
@@ -126,23 +128,21 @@ export default function HomePage() {
                   <SkillPill key={it} label={it} meta={skillItemMeta[it]} />
                 ))}
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </Section>
 
       <Section
         id="experience"
+        index={3}
         title="Work Experience"
         icon={<Briefcase className="h-5 w-5 text-slate-200" />}
         subtitle="Hands-on experience building and maintaining production systems."
       >
         <div className="space-y-4">
           {experience.map((e) => (
-            <div
-              key={`${e.company}-${e.role}`}
-              className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 hover:bg-white/5 transition"
-            >
+            <SpotlightCard key={`${e.company}-${e.role}`} className="p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <div className="text-white font-semibold">{e.role}</div>
@@ -158,25 +158,21 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </Section>
 
       <Section
         id="projects"
+        index={4}
         title="Projects"
         icon={<Code2 className="h-5 w-5 text-slate-200" />}
         subtitle="Formal training that complements hands-on development experience."
       >
         <div className="grid md:grid-cols-2 gap-4">
           {projects.map((p) => (
-            <motion.div
-              key={p.name}
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 250, damping: 18 }}
-              className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 hover:bg-white/5"
-            >
+            <SpotlightCard key={p.name} className="p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="text-white font-semibold">{p.name}</div>
@@ -220,45 +216,41 @@ export default function HomePage() {
                   ))}
                 </div>
               ) : null}
-            </motion.div>
+            </SpotlightCard>
           ))}
         </div>
       </Section>
 
       <Section
         id="education"
+        index={5}
         title="Education"
         icon={<GraduationCap className="h-5 w-5 text-slate-200" />}
         subtitle="Academic foundation supporting my software engineering journey."
       >
         <div className="grid md:grid-cols-2 gap-4">
           {education.map((ed) => (
-            <div
-              key={ed.school}
-              className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 hover:bg-white/5 transition"
-            >
+            <SpotlightCard key={ed.school} className="p-5">
               <div className="text-white font-semibold">{ed.school}</div>
               <div className="text-slate-300 mt-1">{ed.program}</div>
               <div className="mt-3">
                 <Pill>{ed.period}</Pill>
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </Section>
 
       <Section
         id="certificates"
+        index={6}
         title="Certificates"
         icon={<Award className="h-5 w-5 text-slate-200" />}
         subtitle="Continuous learning through recognized certifications and training."
       >
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {certificates.map((c) => (
-            <div
-              key={`${c.title}-${c.date}`}
-              className="rounded-3xl bg-slate-950/40 ring-1 ring-white/10 p-5 hover:bg-white/5 transition"
-            >
+            <SpotlightCard key={`${c.title}-${c.date}`} className="p-5">
               <div className="text-white font-semibold leading-snug">
                 {c.title}
               </div>
@@ -268,14 +260,14 @@ export default function HomePage() {
                   <Pill>{c.date}</Pill>
                 </div>
               ) : null}
-              {c.file ? null : null}
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </Section>
 
       <Section
         id="contact"
+        index={7}
         title="Contact"
         icon={<Mail className="h-5 w-5 text-slate-200" />}
         subtitle="Feel free to reach out for work, ideas, or questions."
@@ -337,6 +329,8 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      <ScrollToTop />
     </>
   );
 }
