@@ -20,8 +20,8 @@ const stats = [
 ];
 
 const roles = [
-  "Full-Stack Engineer",
   "Software Engineer",
+  "Full-Stack Developer",
   "Backend Specialist",
   "API & Systems Builder",
   "DevOps Practitioner",
