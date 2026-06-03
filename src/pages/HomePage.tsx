@@ -6,7 +6,7 @@ import {
   Github,
   GraduationCap,
   Layers,
-  Link,
+  ExternalLink,
   Linkedin,
   Mail,
   MapPin,
@@ -40,7 +40,7 @@ export default function HomePage() {
               <span className="font-semibold text-white">
                 Muhammad Fauzul Azim Bin Imran Hayat
               </span>
-              , a full-stack software engineer who enjoys building systems that
+              , a software engineer who enjoys building systems that
               feel fast, stable, secure and easy to maintain.
             </p>
             <p>
@@ -180,11 +180,11 @@ export default function HomePage() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="text-white font-semibold">{p.name}</div>
-                  {p.period ? (
+                  {/* {p.period ? (
                     <div className="text-xs text-slate-400 mt-1">
                       {p.period}
                     </div>
-                  ) : null}
+                  ) : null} */}
                 </div>
                 <Pill>Featured</Pill>
               </div>
@@ -204,12 +204,16 @@ export default function HomePage() {
                       href={item.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-2xl bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-xs text-slate-100 hover:bg-white/10 transition"
+                      className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer select-none
+                        ${item.kind === "repo"
+                          ? "bg-white/10 ring-1 ring-white/20 text-white hover:bg-white/20 hover:ring-white/40 hover:shadow-lg hover:shadow-white/5"
+                          : "bg-indigo-500/20 ring-1 ring-indigo-400/40 text-indigo-300 hover:bg-indigo-500/30 hover:ring-indigo-400/60 hover:text-indigo-200 hover:shadow-lg hover:shadow-indigo-500/10"
+                        }`}
                     >
                       {item.kind === "repo" ? (
-                        <Github className="h-3.5 w-3.5" />
+                        <Github className="h-3.5 w-3.5 transition-transform duration-200 group-hover:scale-110" />
                       ) : (
-                        <Link className="h-3.5 w-3.5" />
+                        <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       )}
                       {item.label}
                     </a>
